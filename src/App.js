@@ -1,5 +1,6 @@
 // import React, { useState } from 'react';
 import RolePage from './Roles';
+import ChartPage from './chart';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Route, Switch, Link, Redirect, NavLink } from 'react-router-dom'
@@ -22,16 +23,18 @@ function App(props) {
         <div>
           <Switch>
             <Route path='/landing'> </Route>
-            <Route exact path='/'> </Route>
-            <Route path='/roles/:company'> <RolePage /></Route>
-            <Route path='/chart/:company/:role'> </Route>
+            <Route exact path='/'> {/* <CompaniesPage> */} </Route>
+            <Route path='/roles/:company'> <RolePage /> </Route>
+            <Route path='/chart/:company/:role'> <ChartPage /> </Route>
             <Route path='/form'> </Route>
-            <Redirect to='/' />
+            <Route path='/'>
+              <Redirect to='/' />
+            </Route>
           </Switch>
         </div>
       </main>
       <footer class="footer">
-        <p>Daniel Pham, Shane Fretwel, Ryan Carroll</p>
+        <p>Daniel Pham, Shane Fretwell, Ryan Carroll</p>
         <p>INFO 340 Front End Development</p>
         <p><a href="mailto:ischool@uw.edu">ischool@uw.edu</a></p>
       </footer>
