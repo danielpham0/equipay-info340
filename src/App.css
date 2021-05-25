@@ -1,0 +1,404 @@
+/*
+TODO: Deal with background images
+https://ncoughlin.com/posts/react-background-images/
+*/
+
+/******************************** General Page Style ********************************/
+* {
+  box-sizing: border-box;
+}
+
+header {
+  background-color: #283618;
+  color: whitesmoke;
+  padding: 15px;
+  padding-left: 25px;
+}
+header a:hover {
+  color: darkslategrey;
+}
+
+main {
+  background-color: #fefae0;
+}
+
+section, body {
+  padding: 0px;
+}
+
+body {
+  margin:0;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #fefae0;
+}
+
+h1, h2, h3 {
+  font-family: 'Encode Sans', sans-serif;
+  font-weight: 900;
+}
+
+header h1 {
+  margin-bottom: 1%;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+  /******************************** Nav Bar ********************************/
+nav {
+  display: inline-block;
+  background-color: #d4a373;
+  padding: 10px;
+  padding-right:20px;
+  width: fit-content;
+  margin: 0;
+  border-bottom-right-radius: 15px;
+}
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+    display: inline;
+    color: #faedcd;
+    padding-left: 10px;
+}
+
+a{
+  color: inherit;
+}
+
+nav a {
+  text-decoration: none;
+  text-align: center;
+  font-size: .9em;
+}
+
+.active {
+    color: #7f5539;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:hover {
+  color:#7f5539;
+}
+
+/******************************** Self Report Button ********************************/
+.userDataDiv{
+  flex-basis: 100%;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 35px;
+}
+
+.userDataBtn{
+  background-color: #d4a373;
+  border: none;
+  color: #faedcd;
+  border-radius: 5px;
+  margin-bottom: .5em;
+}
+.userDataBtn:hover{
+  background-color: #7f5539;
+  color: #faedcd;
+}
+.userDataLink{
+  text-decoration: none;
+  color:#faedcd;
+  font-size: 1.5em;
+}
+.userDataLink:hover{
+  color: #faedcd;
+}
+
+/******************************** Company Headers ********************************/
+.company_header {
+    color: white;
+    background-color:darkslategray;
+    padding: 15px;
+    font-size: 20px;
+    font-family: 'Encode Sans', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+    margin-top: 5%;
+}
+
+.section_desc {
+  margin: 0;
+  padding: 10px 0 0 20px;
+  font-size: 1.2em;
+  color: #7f5539;
+}
+
+.google_logo {
+  padding-left: 1em;
+  padding-right: .75em;
+  /* background-image: url("/images/google_logo.png"); */
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+  /******************************** Company List Style ********************************/
+
+.c_card{
+  flex-basis: 100%;
+  text-align: center;
+  padding: 2%;
+  height: 20%;
+}
+
+.c_card > div, .c_card > a > div{
+  padding: 5px;
+  background-color:  #fefae0;
+  color:black;
+  background-size: 100%;
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.c_card h3 {
+  border-radius: 10px 10px 0px 0px;
+  font-size: vh;
+  padding: 14px;
+  color:white;
+  background: darkolivegreen;
+  margin: 0;
+}
+
+.c_card:hover{
+  filter: brightness(200%);
+}
+
+.c_content{
+  font-size: 1vh;
+}
+
+.amazon_logo {
+  padding-left: 1em;
+  padding-right: .75em;
+  /* background-image: url("/images/amazon_logo.png"); */
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.microsoft_logo {
+  padding-left: 1em;
+  padding-right: .75em;
+  /* background-image: url("/images/microsoft_logo.png"); */
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+  /******************************** Role Card Gallery ********************************/
+.role_frame {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 10% 0% 10%;
+}
+
+.role_card {
+  flex-basis: 100%;
+  text-align: center;
+  padding: 7%;
+  height: 20%;
+}
+
+.role_card h3 {
+  border-radius: 10px 10px 0px 0px;
+  font-size: 2vh;
+  padding: 18px;
+  color:white;
+  background:#606c38;
+  margin: 0;
+}
+
+.card_content {
+  padding: 25px;
+  color:white;
+  background-size: 100%;
+  border-radius: 0px 0px 10px 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.65)), url('/images/all_roles_card.jpeg'); */
+}
+
+.card_content:hover {
+  filter: brightness(200%);
+}
+
+.role_card p {
+  margin:0;
+  padding-bottom: 7px;
+  font-size: 1.7vh;
+}
+
+.btn-group {
+  padding: 15px 0 0 20px;
+}
+
+/******************************** Footer ********************************/
+
+.footer{
+  text-align: center;
+  background-color: #283618;
+  color: whitesmoke;
+  font-size: 0.6em;
+}
+
+.footer p {
+  margin: 0.1em;
+  padding: 0em;
+}
+
+.picture {
+  max-width: 70%;
+  max-height: 70%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/******************************* Submission From *****************************/
+
+.signUpForm{
+  font-size: 2em;
+  text-align: center;
+}
+
+.col-lg-1{
+  margin: 0.25em;
+}
+
+#success {
+  margin-bottom: 0px;
+ }
+ .form {
+   padding-bottom: 20px;
+ }
+ p.signUpForm {
+   padding-top: 20px;
+ }
+
+/******************************** Small Pages ********************************/
+
+@media (min-width: 598px) {
+  header {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  header h1{
+    font-size: 2.5em;
+  }
+
+  body {
+    margin: 20px;
+    background-color: #606c38;
+  }
+
+  nav {
+    font-size: 1.5em;
+  }
+
+  .role_card {
+    flex-basis: 50%;
+    padding: 5%;
+  }
+
+  .role_frame {
+    padding: 0 2% 0 2%;
+  }
+
+  .company_header {
+    padding: 20px;
+    font-size: 20px;
+    width: 60%;
+    border-color: grey;
+    border-width: 4px;
+    border-style: solid;
+    border-left: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    margin-top: 2%;
+  }
+
+  .company_header h2 {
+    display: inline;
+  }
+
+/*Add responsiveness to index.html company cards */
+  .c_card h3{
+    font-size: 5vh;
+  }
+
+  .c_content{
+    font-size: 2vh;
+  }
+
+  .footer{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+}
+
+/******************************** Medium Pages ********************************/
+/*
+@media (min-width: 768px) {
+}
+ */
+
+/******************************** Large Pages ********************************/
+
+@media (min-width: 992px) {
+  nav {
+    font-size: 1.55em;
+    padding: 15px;
+    padding-right: 25px;
+  }
+
+  header h1 {
+    font-size: 3em;
+  }
+
+  .role_card {
+    flex-basis: 33%;
+    padding: 3%;
+  }
+
+  .role_frame {
+    padding: 0 5% 0 5%;
+  }
+
+  .company_header {
+    font-size: 30px;
+    padding: 25px;
+    width: 50%;
+  }
+
+  /* Add responsiveness to index.html company cards */
+  .c_card h3 {
+    font-size: 10vh;
+  }
+
+  .c_content{
+    font-size: 3.5vh;
+  }
+}
+
+/******************************* X-Large Pages *******************************/
+/*
+@media (min-width: 1200px) {
+
+}
+ */
+
