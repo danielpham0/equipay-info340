@@ -1,5 +1,5 @@
 // import React, { useState } from 'react';
-// import pages from other js files
+import RolePage from './Roles';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Route, Switch, Link, Redirect, NavLink } from 'react-router-dom'
@@ -23,7 +23,7 @@ function App(props) {
           <Switch>
             <Route path='/landing'> </Route>
             <Route exact path='/'> </Route>
-            <Route path='/roles/:company'> </Route>
+            <Route path='/roles/:company'> <RolePage /></Route>
             <Route path='/chart/:company/:role'> </Route>
             <Route path='/form'> </Route>
             <Redirect to='/' />
