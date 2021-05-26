@@ -55,4 +55,12 @@ function Nav(){
   </div>);
 }
 
+export function CompanyHeader(props) {
+  return (
+    <div className="company_header">
+      <span className={ (props.company).toLowerCase() + "_logo" } aria-hidden="true"></span> <h2> { props.company } - Roles </h2>
+    </div>
+  );
+}
+
 export default App;
