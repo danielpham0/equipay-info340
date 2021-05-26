@@ -1,6 +1,7 @@
 // import React, { useState } from 'react';
 import RolePage from './Roles';
-import CompanyPage from './Companies';
+import CompaniesPage from './Companies';
+import LandingPage from './Landing';
 import ChartPage from './chart';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -19,7 +20,7 @@ function App(props) {
         <Nav />
         <div>
           <Switch>
-            <Route path='/landing'> </Route>
+            <Route path='/landing'> <LandingPage /> </Route>
             <Route exact path='/'> <CompaniesPage /></Route>
             <Route path='/roles/:company'> <RolePage data={props.data}/> </Route>
             <Route path='/chart/:company/:role'> <ChartPage /> </Route>
@@ -41,6 +42,8 @@ function App(props) {
 
 function Nav(){
   // Most likely will have to take in props from url to display the nav properly
+  //Also keep in mind this nav bar doesnt go on the companies page or the landing page --> 
+  //Might be better to put this function in the roles, and chart pages
   return(<div>
     <nav>
       <ul>
