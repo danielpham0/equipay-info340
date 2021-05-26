@@ -1,6 +1,6 @@
 // import React, { useState } from 'react';
 import RolePage from './Roles';
-import CompanyPage from './companies';
+import CompanyPage from './Companies';
 import ChartPage from './chart';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
