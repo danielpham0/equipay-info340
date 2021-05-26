@@ -4,18 +4,14 @@ import CompanyPage from './Companies';
 import ChartPage from './chart';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { Route, Switch, Link, Redirect, NavLink } from 'react-router-dom'
-import GOOGLE_EMPLOYEES from './google.csv'
-// most likely need to change this since react doesn't read csv the same as json
+import { Route, Switch, Link, Redirect, NavLink } from 'react-router-dom';
 
 function App(props) {
-  const employees = GOOGLE_EMPLOYEES;
-
   return (
     <div className="App">
       <header>
         <h1><Link to='/landing'>EquiPay</Link></h1>
-        <div class="creators">
+        <div className="creators">
           <p>Daniel Pham, Shane Fretwel, Ryan Carroll</p>
         </div>
       </header>
@@ -25,7 +21,7 @@ function App(props) {
           <Switch>
             <Route path='/landing'> </Route>
             <Route exact path='/'> <CompaniesPage /></Route>
-            <Route path='/roles/:company'> <RolePage /> </Route>
+            <Route path='/roles/:company'> <RolePage data={props.data}/> </Route>
             <Route path='/chart/:company/:role'> <ChartPage /> </Route>
             <Route path='/form'> </Route>
             <Route path='/'>
@@ -34,7 +30,7 @@ function App(props) {
           </Switch>
         </div>
       </main>
-      <footer class="footer">
+      <footer className="footer">
         <p>Daniel Pham, Shane Fretwell, Ryan Carroll</p>
         <p>INFO 340 Front End Development</p>
         <p><a href="mailto:ischool@uw.edu">ischool@uw.edu</a></p>
