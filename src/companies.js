@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CompanyPage(props){
+function CompaniesPage(props){
     return (
         <div>
             <div className="card_frame">
@@ -33,4 +33,4 @@ function CompanyPage(props){
     )
 }
 
-export default CompanyPage;
+export default CompaniesPage;

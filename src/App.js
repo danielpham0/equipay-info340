@@ -24,7 +24,7 @@ function App(props) {
         <div>
           <Switch>
             <Route path='/landing'> </Route>
-            <Route exact path='/'> <CompanyPage /></Route>
+            <Route exact path='/'> <CompaniesPage /></Route>
             <Route path='/roles/:company'> <RolePage /> </Route>
             <Route path='/chart/:company/:role'> <ChartPage /> </Route>
             <Route path='/form'> </Route>
