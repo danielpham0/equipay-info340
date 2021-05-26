@@ -1,6 +1,7 @@
 // import React, { useState } from 'react';
 import RolePage from './Roles';
 import CompanyPage from './companies';
+import ChartPage from './chart';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Route, Switch, Link, Redirect, NavLink } from 'react-router-dom'
@@ -24,15 +25,17 @@ function App(props) {
           <Switch>
             <Route path='/landing'> </Route>
             <Route exact path='/'> <CompanyPage /></Route>
-            <Route path='/roles/:company'> <RolePage /></Route>
-            <Route path='/chart/:company/:role'> </Route>
+            <Route path='/roles/:company'> <RolePage /> </Route>
+            <Route path='/chart/:company/:role'> <ChartPage /> </Route>
             <Route path='/form'> </Route>
-            <Redirect to='/' />
+            <Route path='/'>
+              <Redirect to='/' />
+            </Route>
           </Switch>
         </div>
       </main>
       <footer class="footer">
-        <p>Daniel Pham, Shane Fretwel, Ryan Carroll</p>
+        <p>Daniel Pham, Shane Fretwell, Ryan Carroll</p>
         <p>INFO 340 Front End Development</p>
         <p><a href="mailto:ischool@uw.edu">ischool@uw.edu</a></p>
       </footer>
@@ -51,6 +54,14 @@ function Nav(){
       </ul>
     </nav>
   </div>);
+}
+
+export function CompanyHeader(props) {
+  return (
+    <div className="company_header">
+      <span className={ (props.company).toLowerCase() + "_logo" } aria-hidden="true"></span> <h2> { props.company } - Roles </h2>
+    </div>
+  );
 }
 
 export default App;
