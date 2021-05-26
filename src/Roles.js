@@ -3,9 +3,9 @@ import {CompanyHeader} from './App';
 import * as d3 from 'd3';
 import {Link} from 'react-router-dom';
 import all_roles_card from "./imgs/all_roles_card.jpeg";
-import software_dev_card from "./imgs/software_dev_card.jpeg";
-import ux_designer_card from "./imgs/ux_designer_card.jpeg";
-import proj_manager_card from "./imgs/proj_manager_card.jpeg";
+import software_dev_card from "./imgs/software_dev_card.jpg";
+import ux_designer_card from "./imgs/ux_designer_card.jpg";
+import proj_manager_card from "./imgs/proj_manager_card.jpg";
 
 {/* example for what it needs to look like */}
 {/* <div className=""role_card" style={{backgroundImage: `url(${all_roles_card})`}}}> </div> */}
