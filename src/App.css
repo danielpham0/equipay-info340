@@ -139,6 +139,14 @@ a:hover {
   color: #7f5539;
 }
 
+.logo {
+  padding-left: 1em;
+  padding-right: .75em;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 .google_logo {
   padding-left: 1em;
   padding-right: .75em;
