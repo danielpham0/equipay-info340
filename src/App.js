@@ -23,7 +23,7 @@ function App(props) {
             <Route path='/landing'> <LandingPage /> </Route>
             <Route exact path='/'> <CompaniesPage /> </Route>
             <Route path='/roles/:company'> <RolePage data={props.data}/> </Route>
-            <Route path='/chart/:company/:role'> <ChartPage /> </Route>
+            <Route path='/chart/:company/:role'> <ChartPage data={props.data} /> </Route>
             <Route path='/form'> </Route>
             <Route path='/'>
               <Redirect to='/' />

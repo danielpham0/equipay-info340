@@ -1,9 +1,10 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
+import lodash from 'lodash';
 
 import {CompanyHeader} from './App';
 
-function ChartPage() {
+function ChartPage(props) {
   return (
     <div>
       <h2 className="pt-4 px-4">Compare against the baseline</h2>
@@ -13,26 +14,34 @@ function ChartPage() {
           <ChartForm />
         </div>
         <div className="col-12 col-lg-9">
-          <Chart />
+          <Chart data={props.data} />
         </div>
       </div>
     </div >
   );
 }
 
-function Chart() {
+function Chart(props) {
+
+  // let temp = lodash.filter(props.data, filters);
+
+  let y = [];
+  for (let i = 0; i < 500; i++) {
+    y[i] = Math.random();
+  }
+
+  let data = [
+    {
+      y: y,
+      type: 'histogram',
+      marker: {
+        color: 'pink',
+      },
+    }
+  ];
   return (
     <Plot
-      data={[
-        {
-          x: [1, 2, 3],
-          y: [2, 6, 3],
-          type: 'scatter',
-          mode: 'lines+markers',
-          marker: {color: 'red'},
-        },
-        {type: 'bar', x: [1, 2, 3], y: [2, 5, 3]},
-      ]}
+      data={data}
       layout={{width: 320, height: 240, title: 'A Fancy Plot'}}
     />
   );
