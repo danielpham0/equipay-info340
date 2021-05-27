@@ -1,23 +1,30 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
 import lodash from 'lodash';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 
 import {CompanyHeader} from './App';
+import {FormGroup} from 'react-bootstrap';
 
 function ChartPage(props) {
   return (
     <div>
       <h2 className="pt-4 px-4">Compare against the baseline</h2>
       <CompanyHeader company='Google' />
-      <div className='container py-3'>
-        <div className="col-12 col-lg-3">
-          <ChartForm />
-        </div>
-        <div className="col-12 col-lg-9">
-          <Chart data={props.data} />
-        </div>
-      </div>
-    </div >
+      <Container fluid>
+        <Row>
+          <Col lg={3}>
+            <ChartForm data={props.data}/>
+          </Col>
+          <Col lg={9}>
+            <Chart data={props.data} />
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }
 
@@ -28,8 +35,6 @@ function Chart(props) {
     // 'Sexual Orientation': 'Heterosexual'
   }
   let filtered = lodash.filter(props.data, filters);
-  console.log('filtered', filtered);
-  console.log('filtered 0 1', filtered[0], filtered[1]);
   let filteredSalaries = lodash.map(
     filtered,
     'Base Salary'
@@ -49,48 +54,56 @@ function Chart(props) {
   datasets[1] = Object.assign({}, datasets[0]);
   datasets[1].x = filteredSalaries;
 
+  const [width, setWidth] = React.useState(
+    window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.675)
+  );
+
+  React.useEffect(() => {
+    window.addEventListener('resize', () => {
+      setWidth(window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.675));
+    });
+  });
+
+  let layout = {
+    title: 'A Fancy Plot',
+    width: width
+  }
+
   return (
     <Plot
       data={datasets}
-      layout={{width: window.innerWidth / 2, height: window.innerWidth / 2.5, title: 'A Fancy Plot'}}
+      layout={layout}
     />
   );
 }
 
-function ChartForm() {
+function ChartForm(props) {
+  let options = {};
+  for (let label of ['Ethnicity', 'Gender', 'Sexual Orientation']) {
+    options[label] = lodash.uniq(lodash.map(props.data, (d) => d[label]));
+    options[label] = lodash.sortBy(options[label]);
+    options[label] = lodash.map(options[label], (d) => <option key={d}>{d}</option>);
+  }
+
   return (
-    <form id="chartForm" className="form">
-      <div className="form-group row">
-        <label htmlFor="genderInput" className="col-lg-1">Gender</label>
-        <div className="col-lg-11">
-          <select id="genderInput" name="gender" className="form-control" required>
-            <option value="All">All</option>
-          </select>
-        </div>
-      </div>
-      <div className="form-group row">
-        <label htmlor="ethnicityInput" className="col-lg-1">Ethnicity</label>
-        <div className="col-lg-11">
-          <select id="ethnicityInput" name="ethnicity" className="form-control" required>
-            <option value="All">All</option>
-          </select>
-        </div>
-      </div>
-      <div className="form-group row">
-        <label htmlFor="orientationInput" className="col-lg-1">Sexual Orientation</label>
-        <div className="col-lg-11">
-          <select id="orientationInput" name="sexual orientation" className="form-control" required>
-            <option value="All">All</option>
-          </select>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col col-lg-11 d-flex flex-column">
-          <button id="change-chart" type="submit" className="btn btn-primary d-block my-3">Change Chart</button>
-          <p id="chart-result" className="alert d-none"></p>
-        </div>
-      </div>
-    </form>
+    <Form>
+      <FormSelections options={options} label="Gender" />
+      <FormSelections options={options} label="Ethnicity" />
+      <FormSelections options={options} label="Sexual Orientation" />
+    </Form>
+  );
+}
+
+function FormSelections(props) {
+  let label = props.label;
+  return (
+    <Form.Group controlId={label}>
+      <Form.Label>{label}</Form.Label>
+      <Form.Control as='select'>
+        <option>All</option>
+        {props.options[label]}
+      </Form.Control>
+    </Form.Group>
   );
 }
 
