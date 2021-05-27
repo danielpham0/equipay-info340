@@ -4,8 +4,10 @@ import lodash from 'lodash';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 
 import {CompanyHeader} from './App';
+import {FormGroup} from 'react-bootstrap';
 
 function ChartPage(props) {
   return (
@@ -15,7 +17,7 @@ function ChartPage(props) {
       <Container fluid>
         <Row>
           <Col lg={3}>
-            <ChartForm />
+            <ChartForm data={props.data}/>
           </Col>
           <Col lg={9}>
             <Chart data={props.data} />
@@ -75,40 +77,31 @@ function Chart(props) {
   );
 }
 
-function ChartForm() {
+function ChartForm(props) {
+  let options = {
+    Ethnicity: [<option>All</option>, <option>Black</option>],
+    Gender: [<option>All</option>, <option>Male</option>],
+    'Sexual Orientation': [<option>All</option>, <option>Heterosexual</option>],
+  }
   return (
-    <form id="chartForm" className="form">
-      <div className="form-group row">
-        <label htmlFor="genderInput" className="col-lg-1">Gender</label>
-        <div className="col-lg-11">
-          <select id="genderInput" name="gender" className="form-control" required>
-            <option value="All">All</option>
-          </select>
-        </div>
-      </div>
-      <div className="form-group row">
-        <label htmlor="ethnicityInput" className="col-lg-1">Ethnicity</label>
-        <div className="col-lg-11">
-          <select id="ethnicityInput" name="ethnicity" className="form-control" required>
-            <option value="All">All</option>
-          </select>
-        </div>
-      </div>
-      <div className="form-group row">
-        <label htmlFor="orientationInput" className="col-lg-1">Sexual Orientation</label>
-        <div className="col-lg-11">
-          <select id="orientationInput" name="sexual orientation" className="form-control" required>
-            <option value="All">All</option>
-          </select>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col col-lg-11 d-flex flex-column">
-          <button id="change-chart" type="submit" className="btn btn-primary d-block my-3">Change Chart</button>
-          <p id="chart-result" className="alert d-none"></p>
-        </div>
-      </div>
-    </form>
+    <Form>
+      <FormSelections options={options} label="Gender" />
+      <FormSelections options={options} label="Ethnicity" />
+      <FormSelections options={options} label="Sexual Orientation" />
+    </Form>
+  );
+}
+
+function FormSelections(props) {
+  let label = props.label;
+  return (
+    <Form.Group controlId={label}>
+      <Form.Label>{label}</Form.Label>
+      <Form.Control as='select'>
+        <option>All</option>
+        {props.options[label]}
+      </Form.Control>
+    </Form.Group>
   );
 }
 
