@@ -3,6 +3,7 @@ import RolePage from './Roles';
 import CompaniesPage from './Companies';
 import LandingPage from './Landing';
 import ChartPage from './chart';
+import FormPage from './form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Route, Switch, Link, Redirect, NavLink } from 'react-router-dom';
@@ -24,7 +25,7 @@ function App(props) {
             <Route exact path='/'> <CompaniesPage /> </Route>
             <Route path='/roles/:company'> <RolePage data={props.data}/> </Route>
             <Route path='/chart/:company/:role'> <ChartPage /> </Route>
-            <Route path='/form'> </Route>
+            <Route path='/form'> <FormPage /> </Route>
             <Route path='/'>
               <Redirect to='/' />
             </Route>
