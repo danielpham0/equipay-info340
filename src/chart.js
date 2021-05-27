@@ -35,8 +35,6 @@ function Chart(props) {
     // 'Sexual Orientation': 'Heterosexual'
   }
   let filtered = lodash.filter(props.data, filters);
-  console.log('filtered', filtered);
-  console.log('filtered 0 1', filtered[0], filtered[1]);
   let filteredSalaries = lodash.map(
     filtered,
     'Base Salary'
@@ -56,11 +54,13 @@ function Chart(props) {
   datasets[1] = Object.assign({}, datasets[0]);
   datasets[1].x = filteredSalaries;
 
-  const [width, setWidth] = React.useState(window.innerWidth);
+  const [width, setWidth] = React.useState(
+    window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.675)
+  );
 
   React.useEffect(() => {
     window.addEventListener('resize', () => {
-      setWidth(window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.7));
+      setWidth(window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.675));
     });
   });
 
@@ -78,11 +78,13 @@ function Chart(props) {
 }
 
 function ChartForm(props) {
-  let options = {
-    Ethnicity: [<option>All</option>, <option>Black</option>],
-    Gender: [<option>All</option>, <option>Male</option>],
-    'Sexual Orientation': [<option>All</option>, <option>Heterosexual</option>],
+  let options = {};
+  for (let label of ['Ethnicity', 'Gender', 'Sexual Orientation']) {
+    options[label] = lodash.uniq(lodash.map(props.data, (d) => d[label]));
+    options[label] = lodash.sortBy(options[label]);
+    options[label] = lodash.map(options[label], (d) => <option key={d}>{d}</option>);
   }
+
   return (
     <Form>
       <FormSelections options={options} label="Gender" />
