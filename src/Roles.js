@@ -6,22 +6,26 @@ import all_roles_card from "./imgs/all_roles_card.jpeg";
 import software_dev_card from "./imgs/software_dev_card.jpg";
 import ux_designer_card from "./imgs/ux_designer_card.jpg";
 import proj_manager_card from "./imgs/proj_manager_card.jpg";
+import google_logo from "./imgs/google_logo.png";
 
 {/* example for what it needs to look like */}
 {/* <div className=""role_card" style={{backgroundImage: `url(${all_roles_card})`}}}> </div> */}
+let cardBackgrounds = {all_roles: all_roles_card, 
+  software_development: software_dev_card, 
+  ux_designer: ux_designer_card, 
+  proj_manager_card: proj_manager_card};
+let roleList = [{'title': 'All Roles', description: {'Range':'100k-120k'}}, 
+  {'title': 'Software Development', description: {'Range':'100k-120k'}}, 
+  {'title': 'UX Designer', description: {'Range':'100k-120k'}}];
 
 function RolePage(props){
-    d3.csv(props.data, function(data) { console.log(data); });
-    let roleList = [{'title': 'All Roles', description: {'Range':'100k-120k'}}, 
-      {'title': 'Software Dev', description: {'Range':'100k-120k'}}, 
-      {'title': 'UX Designer', description: {'Range':'100k-120k'}}, 
-      {'title': 'All Roles', description: {'Range':'100k-120k'}}, 
-      {'title': 'Software Dev', description: {'Range':'100k-120k'}}, 
-      {'title': 'UX Designer', description: {'Range':'100k-120k'}}];
-      
+    //d3.csv(props.data, function(data) { console.log(data); });
+
     return(
     <div>
-        <CompanyHeader company='Google'/>
+        <div className="company_header">
+          <span className="logo" style={{backgroundImage: `url(${google_logo})`}} aria-hidden="true"></span> <h2> Google - Roles </h2>
+        </div>
         <p className="section_desc"> Select a role to learn about its salary data! </p>
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
             <label id="average-button" className="btn btn-secondary active">
@@ -31,7 +35,7 @@ function RolePage(props){
                 <input type="radio" name="range" id="rangeInput" autoComplete="off" /> Salary Range
             </label>
         </div>
-        <RoleList roles={roleList}/>
+        <RoleList data={props.data} type='Range' roles={roleList}/>
         <div className="userDataDiv">
           <button className="userDataBtn"><a className="userDataLink" href="form.html">Self Report Data</a></button>
         </div>
@@ -39,29 +43,48 @@ function RolePage(props){
 }
 
 function RoleCard(props) {
-    let keys = Object.keys(props.valueObj);
-    let url = '/chart/:company/' + props.title.replace(/\s/g, '_');
-    return(<div className='role_card'>
-        <Link to={url}>
-        <h3>
-            {props.title}
-        </h3>
-        <div className='card_content'>
-            <div>{keys[0]}</div>
-            <p>{props.valueObj[keys[0]]}</p>
-        </div>
-        </Link>
-    </div>)
+  let keys = Object.keys(props.valueObj);
+  let titleString = props.title.replace(/\s/g, '_').toLowerCase();
+  let url = '/chart/:company/' + titleString;
+  let background = cardBackgrounds[titleString] || cardBackgrounds['all_roles'];
+  return(<div className='role_card'>
+      <Link to={url}>
+      <h3>
+        {props.title}
+      </h3>
+      <div className='card_content' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.65)), url(${background})`}}>
+        <div>{keys[0]}</div>
+          <p>{props.valueObj[keys[0]]}</p>
+      </div>
+      </Link>
+  </div>)
 }
 
 function RoleList(props){
   let list = props.roles || [];
   let roleCards = list.map((role) => {
-    return <RoleCard title={role.title} valueObj={role.description} />;
+    return <RoleCard title={role.title} key={role.title} valueObj={role.description} />;
   })
   return(<div className="role_frame">
     {roleCards}
   </div>);
+
+  // let data = d3.csv(props.data, (row) => {
+  //   return {
+  //     jobTitle: row['Job Title'],
+  //     baseSalary: parseInt(row['Base Salary'])
+  //   };
+  // });
+  // let cards = data.then(data =>{
+  //   let roleList = unique(getCol(data, 'jobTitle'));
+  //   let roleCards = roleList.map((role) => {
+  //     return <RoleCard key={role} title={role} valueObj={retrieveSalaryValue(data, role, props.type)} />
+  //   });
+  //   return(<div className="role_frame">
+  //     {roleCards}
+  //   </div>);
+  // });
+  // return cards;
 }
 
 /**
@@ -111,4 +134,31 @@ function unique(array) {
     return array.filter((value, index, self) => self.indexOf(value) === index);
   }
 
+/**
+ * Returns a value object reflecting salary which is based on a title and the type of value we're looking for
+ * @param {Array} data of Objects representing a data table
+ * @param {String} title job position title.
+ * @param {String} type the type of value user wants displayed for role - either a range or an average salary.
+ * @returns {Object} of value pair indicating what the string is reflecting and what the value for salary is.
+ */
+function retrieveSalaryValue(data, title, type) {
+  let filtered = [];
+  if(title === 'ALL ROLES') {
+    filtered = getCol(data, 'baseSalary');
+  } else{
+    filtered = getCol(filterData(data, {jobTitle: title}), 'baseSalary');
+  }
+  filtered = Object.values(filtered);
+  let valueObj = {};
+  // used Math functions for finding min, average and max https://codeburst.io/javascript-arrays-finding-the-minimum-maximum-sum-average-values-f02f1b0ce332
+  // used regex for replacing commas https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+  if(type === 'Range'){
+    let val = '$' + Math.min(...filtered).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'k - $' + Math.max(...filtered).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'k'; 
+    valueObj = {'Range': val};
+  } else if(type === 'Average Salary'){
+    let val = '$' + Math.round((filtered.reduce((a,b) => a + b, 0) / filtered.length)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'k'; 
+    valueObj = {'Average Salary': val};
+  }
+  return valueObj;
+}
 export default RolePage;
