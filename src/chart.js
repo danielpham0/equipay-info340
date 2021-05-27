@@ -1,6 +1,9 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
 import lodash from 'lodash';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import {CompanyHeader} from './App';
 
@@ -9,15 +12,17 @@ function ChartPage(props) {
     <div>
       <h2 className="pt-4 px-4">Compare against the baseline</h2>
       <CompanyHeader company='Google' />
-      <div className='container py-3'>
-        <div className="col-12 col-lg-3">
-          <ChartForm />
-        </div>
-        <div className="col-12 col-lg-9">
-          <Chart data={props.data} />
-        </div>
-      </div>
-    </div >
+      <Container fluid>
+        <Row>
+          <Col lg={3}>
+            <ChartForm />
+          </Col>
+          <Col lg={9}>
+            <Chart data={props.data} />
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }
 
@@ -49,10 +54,23 @@ function Chart(props) {
   datasets[1] = Object.assign({}, datasets[0]);
   datasets[1].x = filteredSalaries;
 
+  const [width, setWidth] = React.useState(window.innerWidth);
+
+  React.useEffect(() => {
+    window.addEventListener('resize', () => {
+      setWidth(window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.7));
+    });
+  });
+
+  let layout = {
+    title: 'A Fancy Plot',
+    width: width
+  }
+
   return (
     <Plot
       data={datasets}
-      layout={{width: window.innerWidth / 2, height: window.innerWidth / 2.5, title: 'A Fancy Plot'}}
+      layout={layout}
     />
   );
 }
