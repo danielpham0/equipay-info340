@@ -12,20 +12,20 @@ import proj_manager_card from "./imgs/proj_manager_card.jpg";
 
 function RolePage(props){
     d3.csv(props.data, function(data) { console.log(data); });
-    let roleList = [{'title': 'All Roles', description: {'Range':'100k-120k'}}, 
-      {'title': 'Software Dev', description: {'Range':'100k-120k'}}, 
-      {'title': 'UX Designer', description: {'Range':'100k-120k'}}, 
-      {'title': 'All Roles', description: {'Range':'100k-120k'}}, 
-      {'title': 'Software Dev', description: {'Range':'100k-120k'}}, 
+    let roleList = [{'title': 'All Roles', description: {'Range':'100k-120k'}},
+      {'title': 'Software Dev', description: {'Range':'100k-120k'}},
+      {'title': 'UX Designer', description: {'Range':'100k-120k'}},
+      {'title': 'All Roles', description: {'Range':'100k-120k'}},
+      {'title': 'Software Dev', description: {'Range':'100k-120k'}},
       {'title': 'UX Designer', description: {'Range':'100k-120k'}}];
-      
+
     return(
     <div>
-        <CompanyHeader company='Google'/>
+        <CompanyHeader company='Google' />
         <p className="section_desc"> Select a role to learn about its salary data! </p>
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
             <label id="average-button" className="btn btn-secondary active">
-                <input type="radio" name="average" id="averageInput" autoComplete="off" /> Average Salary 
+                <input type="radio" name="average" id="averageInput" autoComplete="off" /> Average Salary
             </label>
             <label id="range-button" className="btn btn-secondary">
                 <input type="radio" name="range" id="rangeInput" autoComplete="off" /> Salary Range
