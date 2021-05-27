@@ -85,6 +85,14 @@ function ChartForm(props) {
     options[label] = lodash.map(options[label], (d) => <option key={d}>{d}</option>);
   }
 
+  /*
+  options = {
+    'Ethnicity': [array of <option>'s],
+    'Gender': [array of <option>'s],
+    'Sexual Orientation': [array of <option>'s]
+  }
+   */
+
   return (
     <Form>
       <FormSelections options={options} label="Gender" />
