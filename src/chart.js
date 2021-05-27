@@ -1,9 +1,10 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
+import lodash from 'lodash';
 
 import {CompanyHeader} from './App';
 
-function ChartPage() {
+function ChartPage(props) {
   return (
     <div>
       <h2 className="pt-4 px-4">Compare against the baseline</h2>
@@ -13,27 +14,45 @@ function ChartPage() {
           <ChartForm />
         </div>
         <div className="col-12 col-lg-9">
-          <Chart />
+          <Chart data={props.data} />
         </div>
       </div>
     </div >
   );
 }
 
-function Chart() {
+function Chart(props) {
+  const filters = {
+    'Ethnicity': 'Black',
+    'Gender': 'Transgender Female',
+    // 'Sexual Orientation': 'Heterosexual'
+  }
+  let filtered = lodash.filter(props.data, filters);
+  console.log('filtered', filtered);
+  console.log('filtered 0 1', filtered[0], filtered[1]);
+  let filteredSalaries = lodash.map(
+    filtered,
+    'Base Salary'
+  );
+
+  let baseline = lodash.map(props.data, 'Base Salary');
+  let max = Math.max(baseline);
+
+  let datasets = [
+    {
+      x: baseline,
+      type: 'histogram',
+      histnorm: 'probability',
+      xbins: {end: max, size: 10000, start: 0}
+    }
+  ];
+  datasets[1] = Object.assign({}, datasets[0]);
+  datasets[1].x = filteredSalaries;
+
   return (
     <Plot
-      data={[
-        {
-          x: [1, 2, 3],
-          y: [2, 6, 3],
-          type: 'scatter',
-          mode: 'lines+markers',
-          marker: {color: 'red'},
-        },
-        {type: 'bar', x: [1, 2, 3], y: [2, 5, 3]},
-      ]}
-      layout={{width: 320, height: 240, title: 'A Fancy Plot'}}
+      data={datasets}
+      layout={{width: window.innerWidth / 2, height: window.innerWidth / 2.5, title: 'A Fancy Plot'}}
     />
   );
 }
