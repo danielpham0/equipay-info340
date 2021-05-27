@@ -22,18 +22,23 @@ function ChartPage(props) {
 }
 
 function Chart(props) {
-
-  // let temp = lodash.filter(props.data, filters);
-
-  // let y = [];
-  // for (let i = 0; i < 500; i++) {
-  //   y[i] = Math.random();
-  // }
+  const filters = {
+    'Ethnicity': 'Black',
+    'Gender': 'Transgender Female',
+    // 'Sexual Orientation': 'Heterosexual'
+  }
+  let filtered = lodash.filter(props.data, filters);
+  console.log('filtered', filtered);
+  console.log('filtered 0 1', filtered[0], filtered[1]);
+  let filteredSalaries = lodash.map(
+    filtered,
+    'Base Salary'
+  );
 
   let baseline = lodash.map(props.data, 'Base Salary');
   let max = Math.max(baseline);
 
-  let data = [
+  let datasets = [
     {
       x: baseline,
       type: 'histogram',
@@ -41,14 +46,15 @@ function Chart(props) {
       xbins: {end: max, size: 10000, start: 0}
     }
   ];
-  console.log(data.y);
+  datasets[1] = Object.assign({}, datasets[0]);
+  datasets[1].x = filteredSalaries;
+
   return (
     <Plot
-      data={data}
+      data={datasets}
       layout={{width: window.innerWidth / 2, height: window.innerWidth / 2.5, title: 'A Fancy Plot'}}
     />
   );
-  // return <div></div>;
 }
 
 function ChartForm() {
