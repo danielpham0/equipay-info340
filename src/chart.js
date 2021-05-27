@@ -25,26 +25,30 @@ function Chart(props) {
 
   // let temp = lodash.filter(props.data, filters);
 
-  let y = [];
-  for (let i = 0; i < 500; i++) {
-    y[i] = Math.random();
-  }
+  // let y = [];
+  // for (let i = 0; i < 500; i++) {
+  //   y[i] = Math.random();
+  // }
+
+  let baseline = lodash.map(props.data, 'Base Salary');
+  let max = Math.max(baseline);
 
   let data = [
     {
-      y: y,
+      x: baseline,
       type: 'histogram',
-      marker: {
-        color: 'pink',
-      },
+      histnorm: 'probability',
+      xbins: {end: max, size: 10000, start: 0}
     }
   ];
+  console.log(data.y);
   return (
     <Plot
       data={data}
-      layout={{width: 320, height: 240, title: 'A Fancy Plot'}}
+      layout={{width: window.innerWidth / 2, height: window.innerWidth / 2.5, title: 'A Fancy Plot'}}
     />
   );
+  // return <div></div>;
 }
 
 function ChartForm() {

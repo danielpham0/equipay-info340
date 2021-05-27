@@ -11,7 +11,6 @@ import proj_manager_card from "./imgs/proj_manager_card.jpg";
 {/* <div className=""role_card" style={{backgroundImage: `url(${all_roles_card})`}}}> </div> */}
 
 function RolePage(props){
-    d3.csv(props.data, function(data) { console.log(data); });
     let roleList = [{'title': 'All Roles', description: {'Range':'100k-120k'}},
       {'title': 'Software Dev', description: {'Range':'100k-120k'}},
       {'title': 'UX Designer', description: {'Range':'100k-120k'}},
