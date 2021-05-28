@@ -147,15 +147,6 @@ a:hover {
   background-size: contain;
 }
 
-.google_logo {
-  padding-left: 1em;
-  padding-right: .75em;
-  /* background-image: url("/images/google_logo.png"); */
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
   /******************************** Company List Style ********************************/
 
 .c_card{
@@ -191,24 +182,6 @@ a:hover {
   font-size: 1vh;
 }
 
-.amazon_logo {
-  padding-left: 1em;
-  padding-right: .75em;
-  /* background-image: url("/images/amazon_logo.png"); */
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-.microsoft_logo {
-  padding-left: 1em;
-  padding-right: .75em;
-  /* background-image: url("/images/microsoft_logo.png"); */
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
   /******************************** Role Card Gallery ********************************/
 .role_frame {
   display: flex;
@@ -230,6 +203,10 @@ a:hover {
   color:white;
   background:#606c38;
   margin: 0;
+}
+
+.role_card .all_roles {
+  background:#d4a373;
 }
 
 .card_content {

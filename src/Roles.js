@@ -1,25 +1,24 @@
 import {React, useState} from 'react';
-import {Link} from 'react-router-dom';
-import all_roles_card from "./imgs/all_roles_card.jpeg";
-import software_dev_card from "./imgs/software_dev_card.jpg";
-import ux_designer_card from "./imgs/ux_designer_card.jpg";
-import proj_manager_card from "./imgs/proj_manager_card.jpg";
-import google_logo from "./imgs/google_logo.png";
+import {Link, useParams} from 'react-router-dom';
+import {CompanyHeader} from './App';
+import amazon_card from "./imgs/amazon_card.jpeg";
+import google_card from "./imgs/google_card.jpeg";
+import microsoft_card from "./imgs/microsoft_card.jpeg";
 import lodash from 'lodash';
 
-let cardBackgrounds = {all_roles: all_roles_card, 
-  software_development: software_dev_card, 
-  ux_designer: ux_designer_card, 
-  proj_manager_card: proj_manager_card};
+let cardBackgrounds = {
+    google: google_card,
+    amazon: amazon_card,
+    microsoft: microsoft_card
+};
 
 function RolePage(props){
+    const urlParams = useParams();
     return(
     <div>
-        <div className="company_header">
-          <span className="logo" style={{backgroundImage: `url(${google_logo})`}} aria-hidden="true"></span> <h2> Google - Roles </h2>
-        </div>
+        <CompanyHeader company={urlParams.company} description={'Roles'} />
         <p className="section_desc"> Select a role to learn about its salary data! </p>
-        <RoleFrame data={props.data}/>
+        <RoleFrame data={props.data} company={urlParams.company}/>
         <div className="userDataDiv">
           <button className="userDataBtn"><a className="userDataLink" href="form.html">Self Report Data</a></button>
         </div>
@@ -29,11 +28,11 @@ function RolePage(props){
 function RoleCard(props) {
   let keys = Object.keys(props.valueObj);
   let titleString = props.title.replace(/\s/g, '_').toLowerCase();
-  let url = '/chart/:company/' + titleString;
-  let background = cardBackgrounds[titleString] || cardBackgrounds['all_roles'];
+  let url = '/chart/' + props.company + "/" + titleString;
+  let background = cardBackgrounds[props.company];
   return(<div className='role_card'>
       <Link to={url}>
-      <h3>
+      <h3 className={titleString === 'all_roles' ? 'all_roles' : ''}>
         {props.title}
       </h3>
       <div className='card_content' style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.65)), url(${background})`}}>
@@ -54,7 +53,7 @@ function RoleList(props){
         props.data, {'Job Title': role}).map(
           data => data['Base Salary']);
     let valueObj = retrieveSalaryValue(salaryData, props.type);
-    return <RoleCard key={role} title={role} valueObj={valueObj}/>
+    return <RoleCard key={role} title={role} valueObj={valueObj} company={props.company} />
   });
   return(<div className="role_frame">
     {roleCards}
@@ -72,7 +71,7 @@ function RoleFrame(props) {
     <button id="average-button" className="btn btn-secondary" onClick={handleClick}> Average Salary </button>
     <button id="range-button" className="btn btn-secondary active" onClick={handleClick}> Salary Range </button>
     </div>
-    <RoleList data={props.data} type='Range'/>
+    <RoleList data={props.data} type='Range' company={props.company}/>
   </div>);
   }else {
     return(<div>
@@ -80,7 +79,7 @@ function RoleFrame(props) {
     <button id="average-button" className="btn btn-secondary active" onClick={handleClick}> Average Salary </button>
     <button id="range-button" className="btn btn-secondary" onClick={handleClick}> Salary Range </button>
     </div>
-    <RoleList data={props.data} type='Average Salary'/>
+    <RoleList data={props.data} type='Average Salary' company={props.company}/>
   </div>);
   }
 }
