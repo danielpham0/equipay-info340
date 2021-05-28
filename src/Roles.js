@@ -1,6 +1,6 @@
 import {React, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
-import {CompanyHeader} from './App';
+import {CompanyHeader, Nav} from './App';
 import amazon_card from "./imgs/amazon_card.jpeg";
 import google_card from "./imgs/google_card.jpeg";
 import microsoft_card from "./imgs/microsoft_card.jpeg";
@@ -14,11 +14,14 @@ let cardBackgrounds = {
 
 function RolePage(props){
     const urlParams = useParams();
+    let company = urlParams.company;
+    let navLinks = [{Companies: "/"}, {[company.charAt(0).toUpperCase() + company.slice(1)]: "/roles/" + company}];
     return(
     <div>
-        <CompanyHeader company={urlParams.company} description={'Roles'} />
+        <Nav links={navLinks} />
+        <CompanyHeader company={company} description={'Roles'} />
         <p className="section_desc"> Select a role to learn about its salary data! </p>
-        <RoleFrame data={props.data} company={urlParams.company}/>
+        <RoleFrame data={props.data} company={company}/>
         <div className="userDataDiv">
           <button className="userDataBtn"><a className="userDataLink" href="form.html">Self Report Data</a></button>
         </div>

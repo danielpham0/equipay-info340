@@ -3,16 +3,12 @@ import { NavLink, Link } from 'react-router-dom';
 import amazon_logo from "./imgs/amazon_logo.png";
 import google_logo from "./imgs/google_logo.png";
 import microsoft_logo from "./imgs/microsoft_logo.png";
+import {Nav} from './App';
 
 function CompaniesPage(props){
     return (
         <div>
-            <nav>
-                <ul>
-                <li> <NavLink to="/Landing"> About EquiPay </NavLink> </li>
-                </ul>
-            </nav>
-
+            <Nav links={[{'About Equipay': '/Landing'}]}/>
             <div className="card_frame">
             <div className="c_card">
             <Link to="/roles/google">

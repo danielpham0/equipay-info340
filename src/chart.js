@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import {CompanyHeader} from './App';
+import {CompanyHeader, Nav} from './App';
 import {FormGroup} from 'react-bootstrap';
 
 function ChartPage(props) {
@@ -17,8 +17,13 @@ function ChartPage(props) {
   role = role.split(' ').map((str => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   })).join(' ');
+  let company = urlParams.company;
+  let navLinks = [{Companies: "/"}, 
+    {[company.charAt(0).toUpperCase() + company.slice(1)]: "/roles/" + company},
+    {[role]: "/chart/" + company + "/" + urlParams.role}];
   return (
     <div>
+      <Nav links={navLinks} />
       <h2 className="pt-4 px-4">Compare against the baseline</h2>
       <CompanyHeader company={urlParams.company} description={role} />
       <Container fluid>
