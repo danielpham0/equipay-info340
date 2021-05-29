@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {useLocation} from 'react-router-dom';
 import Plot from 'react-plotly.js';
 import lodash from 'lodash';
+import queryString from 'query-string';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,11 +11,6 @@ import Form from 'react-bootstrap/Form';
 import {CompanyHeader} from './App';
 
 function ChartPage(props) {
-  const [filters, setFilters] = useState({
-    'Ethnicity': 'White',
-    'Gender': 'Male',
-    'Sexual Orientation': 'Heterosexual'
-  });
   return (
     <div>
       <h2 className="pt-4 px-4">Compare against the baseline</h2>
@@ -21,10 +18,10 @@ function ChartPage(props) {
       <Container fluid>
         <Row>
           <Col lg={3}>
-            <ChartForm data={props.data} setFilters={setFilters} />
+            <ChartForm data={props.data} />
           </Col>
           <Col lg={9}>
-            <Chart data={props.data} filters={filters} />
+            <Chart data={props.data} />
           </Col>
         </Row>
       </Container>
@@ -33,11 +30,20 @@ function ChartPage(props) {
 }
 
 function Chart(props) {
-  let filtered = lodash.filter(props.data, props.filters);
-  let filteredSalaries = lodash.map(
-    filtered,
-    'Base Salary'
-  );
+  const {search} = useLocation();
+  let filters = queryString.parse(search);
+
+  console.log(filters);
+  for (let filterKey of Object.keys(filters)) {
+    // If the data does not contain a demographic category matching the filter, ignore it.
+    // This can only happen if the user is modifying the url in order to change the chart
+    if (!props.data[0][filterKey]) {
+      delete filters[filterKey];
+    }
+  }
+
+  let filtered = lodash.filter(props.data, filters);
+  let filteredSalaries = lodash.map(filtered, 'Base Salary');
 
   let baseline = lodash.map(props.data, 'Base Salary');
   let max = Math.max(baseline);
