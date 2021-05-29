@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Plot from 'react-plotly.js';
 import lodash from 'lodash';
 import Container from 'react-bootstrap/Container';
@@ -7,9 +7,13 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
 import {CompanyHeader} from './App';
-import {FormGroup} from 'react-bootstrap';
 
 function ChartPage(props) {
+  const [filters, setFilters] = useState({
+    'Ethnicity': 'White',
+    'Gender': 'Male',
+    'Sexual Orientation': 'Heterosexual'
+  });
   return (
     <div>
       <h2 className="pt-4 px-4">Compare against the baseline</h2>
@@ -17,10 +21,10 @@ function ChartPage(props) {
       <Container fluid>
         <Row>
           <Col lg={3}>
-            <ChartForm data={props.data}/>
+            <ChartForm data={props.data} setFilters={setFilters} />
           </Col>
           <Col lg={9}>
-            <Chart data={props.data} />
+            <Chart data={props.data} filters={filters} />
           </Col>
         </Row>
       </Container>
@@ -29,12 +33,7 @@ function ChartPage(props) {
 }
 
 function Chart(props) {
-  const filters = {
-    'Ethnicity': 'Black',
-    'Gender': 'Transgender Female',
-    // 'Sexual Orientation': 'Heterosexual'
-  }
-  let filtered = lodash.filter(props.data, filters);
+  let filtered = lodash.filter(props.data, props.filters);
   let filteredSalaries = lodash.map(
     filtered,
     'Base Salary'
@@ -78,20 +77,20 @@ function Chart(props) {
 }
 
 function ChartForm(props) {
-  let options = {};
-  for (let label of ['Ethnicity', 'Gender', 'Sexual Orientation']) {
-    options[label] = lodash.uniq(lodash.map(props.data, (d) => d[label]));
-    options[label] = lodash.sortBy(options[label]);
-    options[label] = lodash.map(options[label], (d) => <option key={d}>{d}</option>);
-  }
-
-  /*
+  /* Expected format for options object
   options = {
     'Ethnicity': [array of <option>'s],
     'Gender': [array of <option>'s],
     'Sexual Orientation': [array of <option>'s]
   }
    */
+
+  let options = {};
+  for (let label of ['Ethnicity', 'Gender', 'Sexual Orientation']) {
+    options[label] = lodash.uniq(lodash.map(props.data, (d) => d[label]));
+    options[label] = lodash.sortBy(options[label]);
+    options[label] = lodash.map(options[label], (d) => <option key={d}>{d}</option>);
+  }
 
   return (
     <Form>
