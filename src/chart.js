@@ -1,5 +1,5 @@
 import React from 'react';
-import {Redirect, useLocation} from 'react-router-dom';
+import {useParams, useLocation} from 'react-router-dom';
 import Plot from 'react-plotly.js';
 import lodash from 'lodash';
 import queryString from 'query-string';
@@ -8,14 +8,25 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
-import {CompanyHeader} from './App';
+import {CompanyHeader, Nav} from './App';
 
 function ChartPage(props) {
+  const urlParams = useParams();
+  // capitalizing first letter of each using method here:
+  // https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript/
+  let role = urlParams.role.replace(/_/g, ' ');
+  role = role.split(' ').map((str => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  })).join(' ');
+  let company = urlParams.company;
+  let navLinks = [{Companies: "/"},
+    {[company.charAt(0).toUpperCase() + company.slice(1)]: "/roles/" + company},
+    {[role]: "/chart/" + company + "/" + urlParams.role}];
   return (
     <div>
+      <Nav links={navLinks} />
       <h2 className="pt-4 px-4">Compare against the baseline</h2>
-      <CompanyHeader company='Google' />
+      <CompanyHeader company={urlParams.company} description={role} />
       <Container fluid>
         <Row>
           <Col lg={3}>

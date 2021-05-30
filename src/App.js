@@ -1,4 +1,3 @@
-// import React, { useState } from 'react';
 import RolePage from './Roles';
 import CompaniesPage from './Companies';
 import LandingPage from './Landing';
@@ -6,7 +5,16 @@ import ChartPage from './chart';
 import FormPage from './form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { Route, Switch, Link, Redirect, NavLink } from 'react-router-dom';
+import { Route, Switch, Link, Redirect, NavLink} from 'react-router-dom';
+import amazon_logo from "./imgs/amazon_logo.png";
+import google_logo from "./imgs/google_logo.png";
+import microsoft_logo from "./imgs/microsoft_logo.png";
+
+let logos = {
+  google: google_logo,
+  amazon: amazon_logo,
+  microsoft: microsoft_logo
+};
 
 function App(props) {
   return (
@@ -18,8 +26,6 @@ function App(props) {
         </div>
       </header>
       <main>
-        <Nav />
-        <div>
           <Switch>
             <Route path='/landing'> <LandingPage /> </Route>
             <Route exact path='/'> <CompaniesPage /> </Route>
@@ -30,7 +36,6 @@ function App(props) {
               <Redirect to='/' />
             </Route>
           </Switch>
-        </div>
       </main>
       <footer className="footer">
         <p>Daniel Pham, Shane Fretwell, Ryan Carroll</p>
@@ -41,25 +46,26 @@ function App(props) {
   );
 }
 
-function Nav(){
-  // Most likely will have to take in props from url to display the nav properly
-  //Also keep in mind this nav bar doesnt go on the companies page or the landing page -->
-  //Might be better to put this function in the roles, and chart pages
-  return(<div>
-    <nav>
-      <ul>
-        <li><NavLink exact to="/" activeClassName="active"> Companies </NavLink></li>
+export function Nav(props){
+  let links = props.links.map((link, index) => {
+    let linkName = Object.keys(link)[0];
+    if(index !== props.links.length-1){
+      return(<span key={linkName}>
+        <li><NavLink exact to={link[linkName]} activeClassName="active"> {linkName} </NavLink></li>
         <li> {'>'} </li>
-        <li><NavLink exact to="/roles/:company" activeClassName="active"> Google </NavLink></li>
-      </ul>
-    </nav>
-  </div>);
+        </span>);
+    }else{
+      return(<li key={linkName}><NavLink exact to={link[linkName]} activeClassName="active"> {linkName} </NavLink></li>);
+    }
+  });
+  return(<nav><ul>{links}</ul></nav>);
 }
 
 export function CompanyHeader(props) {
+  let logo = logos[props.company];
   return (
     <div className="company_header">
-      <span className={ (props.company).toLowerCase() + "_logo" } aria-hidden="true"></span> <h2> { props.company } - Roles </h2>
+      <span className="logo" style={{backgroundImage: `url(${logo})`}} aria-hidden="true"></span> <h2> {props.company.charAt(0).toUpperCase() + props.company.slice(1)} - {props.description} </h2>
     </div>
   );
 }
