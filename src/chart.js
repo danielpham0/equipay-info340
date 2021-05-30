@@ -22,27 +22,35 @@ function ChartPage(props) {
   let navLinks = [{Companies: "/"},
     {[company.charAt(0).toUpperCase() + company.slice(1)]: "/roles/" + company},
     {[role]: "/chart/" + company + "/" + urlParams.role}];
+
+  const [chartNeedsUpdate, setUpdate] = React.useState(false);
   return (
-    <div>
+    <>
       <Nav links={navLinks} />
       <h2 className="pt-4 px-4">Compare against the baseline</h2>
       <CompanyHeader company={urlParams.company} description={role} />
       <Container fluid>
         <Row>
           <Col lg={3}>
-            <ChartForm data={props.data} />
+            <ChartForm data={props.data} setUpdate={setUpdate} />
           </Col>
           <Col lg={9}>
-            <Chart data={props.data} />
+            <Chart data={props.data} chartNeedsUpdate={chartNeedsUpdate} setUpdate={setUpdate} />
           </Col>
         </Row>
       </Container>
-    </div>
+    </>
   );
 }
 
 function Chart(props) {
-  const {search} = useLocation();
+  React.useEffect(() => {
+    if (props.chartNeedsUpdate) {
+      props.setUpdate(false);
+    }
+  });
+
+  let search = window.location.search;
   let filters = queryString.parse(search);
 
   for (let filterKey of Object.keys(filters)) {
@@ -74,17 +82,14 @@ function Chart(props) {
     window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.675)
   );
 
-  React.useEffect(() => {
-    window.addEventListener('resize', () => {
-      setWidth(window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.675));
-    });
+  window.addEventListener('resize', () => {
+    setWidth(window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.675));
   });
 
   let layout = {
     title: 'A Fancy Plot',
     width: width
   }
-  console.log(filters);
 
   return (
     <Plot
@@ -120,10 +125,8 @@ function ChartForm(props) {
         filters[select.id] = select.value;
       }
     }
-    console.log("filters", filters);
-    console.log("path + searches", pathname + '?' + queryString.stringify(filters));
     window.history.pushState({}, null, pathname + '?' + queryString.stringify(filters));
-    window.history.go(0);
+    props.setUpdate(true);
   }
 
   return (
