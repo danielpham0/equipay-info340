@@ -30,6 +30,7 @@ function Chart(props) {
   let datasets = [
     {
       x: baseline,
+      name: 'All ' + (props.role === 'All Roles' ? 'Roles' : props.role + 's'),
       type: 'histogram',
       histnorm: 'probability',
       xbins: {end: max, size: 10000, start: 0}
@@ -37,23 +38,31 @@ function Chart(props) {
   ];
   datasets[1] = Object.assign({}, datasets[0]);
   datasets[1].x = filteredSalaries;
+  datasets[1].name = 'Selected Demographic';
 
   const [width, setWidth] = React.useState(
     window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.675)
   );
 
-  window.addEventListener('resize', () => {
-    setWidth(window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.675));
-  });
+  const [listenerAdded, setListenerAdded] = React.useState(false);
+
+  if (!listenerAdded) {
+    setListenerAdded(true);
+    // Resize Observer from https://thewebdev.info/2021/02/21/how-to-watch-the-javascript-window-resize-event/#:~:text=How%20to%20Watch%20the%20JavaScript%20Window%20Resize%20Event%3F,Handler.%20...%203%20ResizeObserver.%20...%204%20Conclusion.%20
+    const ro = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const width = entry.contentRect.width;
+        setWidth(width * (width < 992 ? 0.9 : 0.675));
+      }
+    });
+    ro.observe(document.querySelector('html'));
+  }
 
   let identity = '';
   for (let key in filters) {
       if (filters[key] !== 'All') {
           identity += ' ' + filters[key];
       }
-  }
-  if (identity === '') {
-    identity = ' All';
   }
 
   let layout = {

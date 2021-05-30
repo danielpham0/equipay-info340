@@ -16,8 +16,9 @@ function ChartPage(props) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   })).join(' ');
   let company = urlParams.company;
+  let capitalizedCompany = company.charAt(0).toUpperCase() + company.slice(1);
   let navLinks = [{Companies: "/"},
-    {[company.charAt(0).toUpperCase() + company.slice(1)]: "/roles/" + company},
+    {[capitalizedCompany]: "/roles/" + company},
     {[role]: "/chart/" + company + "/" + urlParams.role}];
 
   const [chartNeedsUpdate, setUpdate] = React.useState(false);
@@ -41,7 +42,8 @@ function ChartPage(props) {
               data={props.data}
               chartNeedsUpdate={chartNeedsUpdate}
               setUpdate={setUpdate}
-              company={company}
+              company={capitalizedCompany}
+              role={role}
             />
           </Col>
         </Row>
