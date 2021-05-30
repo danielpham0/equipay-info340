@@ -46,8 +46,18 @@ function Chart(props) {
     setWidth(window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.675));
   });
 
+  let identity = '';
+  for (let key in filters) {
+      if (filters[key] !== 'All') {
+          identity += ' ' + filters[key];
+      }
+  }
+  if (identity === '') {
+    identity = ' All';
+  }
+
   let layout = {
-    title: 'A Fancy Plot',
+    title: 'Salaries of' + identity + ' Employees at ' + props.company,
     width: width
   }
 

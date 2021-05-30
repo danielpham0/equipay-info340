@@ -32,7 +32,11 @@ function ChartPage(props) {
             <ChartForm data={props.data} setUpdate={setUpdate} />
           </Col>
           <Col lg={9}>
-            <Chart data={props.data} chartNeedsUpdate={chartNeedsUpdate} setUpdate={setUpdate} />
+            <Chart data={props.data}
+              chartNeedsUpdate={chartNeedsUpdate}
+              setUpdate={setUpdate}
+              company={company}
+            />
           </Col>
         </Row>
       </Container>
