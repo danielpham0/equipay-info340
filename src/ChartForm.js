@@ -36,7 +36,10 @@ function ChartForm(props) {
   }
 
   return (
-    <Form onSubmit={changeChart}>
+    <Form
+      onSubmit={changeChart}
+      className={props.className}
+    >
       <FormSelections options={options} label="Gender" />
       <FormSelections options={options} label="Ethnicity" />
       <FormSelections options={options} label="Sexual Orientation" />

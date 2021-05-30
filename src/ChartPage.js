@@ -29,10 +29,16 @@ function ChartPage(props) {
       <Container fluid>
         <Row>
           <Col lg={3}>
-            <ChartForm data={props.data} setUpdate={setUpdate} />
+            <ChartForm
+              className='my-3 ml-lg-3'
+              data={props.data}
+              setUpdate={setUpdate}
+            />
           </Col>
           <Col lg={9}>
-            <Chart data={props.data}
+            <Chart
+              className='mb-3 ml-lg-0 mt-lg-3'
+              data={props.data}
               chartNeedsUpdate={chartNeedsUpdate}
               setUpdate={setUpdate}
               company={company}

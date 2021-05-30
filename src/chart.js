@@ -63,6 +63,7 @@ function Chart(props) {
 
   return (
     <Plot
+      className={props.className}
       data={datasets}
       layout={layout}
     />
