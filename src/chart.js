@@ -110,17 +110,9 @@ function ChartForm(props) {
     options[label] = lodash.map(options[label], (d) => <option key={d}>{d}</option>);
   }
 
-  const [submitted, setSubmitted] = React.useState();
-
+  const {pathname} = useLocation();
   const changeChart = (event) => {
     event.preventDefault();
-    console.log("submit callback, submitted:", submitted);
-    setSubmitted(true);
-  }
-
-  const {pathname} = useLocation();
-  if (submitted) {
-    setSubmitted(!submitted);
     let selects = document.querySelectorAll('select');
     let filters = {};
     for (let select of selects) {
@@ -132,8 +124,6 @@ function ChartForm(props) {
     console.log("path + searches", pathname + '?' + queryString.stringify(filters));
     window.history.pushState({}, null, pathname + '?' + queryString.stringify(filters));
     window.history.go(0);
-    // return <Redirect to='/' />;
-    // return <Redirect to={pathname + '?' + queryString.stringify(filters)} />;
   }
 
   return (
