@@ -1,7 +1,7 @@
 import RolePage from './Roles';
 import CompaniesPage from './Companies';
 import LandingPage from './Landing';
-import ChartPage from './chart';
+import ChartPage from './ChartPage';
 import FormPage from './form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
