@@ -1,5 +1,5 @@
 import React from 'react';
-import {useLocation} from 'react-router-dom';
+import {Redirect, useLocation} from 'react-router-dom';
 import Plot from 'react-plotly.js';
 import lodash from 'lodash';
 import queryString from 'query-string';
@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 import {CompanyHeader} from './App';
 
@@ -33,7 +34,6 @@ function Chart(props) {
   const {search} = useLocation();
   let filters = queryString.parse(search);
 
-  console.log(filters);
   for (let filterKey of Object.keys(filters)) {
     // If the data does not contain a demographic category matching the filter, ignore it.
     // This can only happen if the user is modifying the url in order to change the chart
@@ -73,6 +73,7 @@ function Chart(props) {
     title: 'A Fancy Plot',
     width: width
   }
+  console.log(filters);
 
   return (
     <Plot
@@ -98,11 +99,40 @@ function ChartForm(props) {
     options[label] = lodash.map(options[label], (d) => <option key={d}>{d}</option>);
   }
 
+  const [submitted, setSubmitted] = React.useState();
+
+  const changeChart = (event) => {
+    event.preventDefault();
+    console.log("submit callback, submitted:", submitted);
+    setSubmitted(true);
+  }
+
+  const {pathname} = useLocation();
+  if (submitted) {
+    setSubmitted(!submitted);
+    let selects = document.querySelectorAll('select');
+    let filters = {};
+    for (let select of selects) {
+      if (select.value !== 'All') {
+        filters[select.id] = select.value;
+      }
+    }
+    console.log("filters", filters);
+    console.log("path + searches", pathname + '?' + queryString.stringify(filters));
+    window.history.pushState({}, null, pathname + '?' + queryString.stringify(filters));
+    window.history.go(0);
+    // return <Redirect to='/' />;
+    // return <Redirect to={pathname + '?' + queryString.stringify(filters)} />;
+  }
+
   return (
-    <Form>
+    <Form onSubmit={changeChart}>
       <FormSelections options={options} label="Gender" />
       <FormSelections options={options} label="Ethnicity" />
       <FormSelections options={options} label="Sexual Orientation" />
+      <Button variant="primary" type="submit">
+        Change Chart
+      </Button>
     </Form>
   );
 }
