@@ -4,7 +4,7 @@ import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 import GOOGLE_EMPLOYEES from './google.json';
 
-console.log(GOOGLE_EMPLOYEES[0], GOOGLE_EMPLOYEES[1], GOOGLE_EMPLOYEES[2]);
+// console.log(GOOGLE_EMPLOYEES[0], GOOGLE_EMPLOYEES[1], GOOGLE_EMPLOYEES[2]);
 ReactDOM.render(
   <BrowserRouter>
     <App data={GOOGLE_EMPLOYEES}/>

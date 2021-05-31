@@ -20,6 +20,7 @@ header a:hover {
 
 main {
   background-color: #fefae0;
+  padding-bottom: 1%;
 }
 
 section, body {
@@ -96,7 +97,7 @@ a:hover {
   flex-basis: 100%;
   text-align: center;
   padding-top: 20px;
-  padding-bottom: 35px;
+  padding-bottom: 15px;
 }
 
 .userDataBtn{
@@ -252,6 +253,7 @@ a:hover {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  padding-top: 3%;
 }
 
 /******************************* Submission From *****************************/

@@ -1,14 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-
 function FormPage(props){
+    function onButtonClickHandler(){
+        window.alert("Your submission has been successful!")
+    }
     return (
         <div>
-            <header>
-                <h1>EquiPay</h1>
-                <p>Fair pay for everyone</p>
-            </header>
             <main>
                 <nav>
                     <ul>
@@ -91,10 +89,7 @@ function FormPage(props){
                         <div className="invalid-feedback">Please provide a date</div>
                         </div>
                     </div>
-
-                    <button type="submit" id="btnSubmit" className="btn btn-primary" disabled="disabled">Submit!</button>
-                    <p id="chart-success" className="alert alert-success d-none">Success!</p>
-                    <p id="success" className="alert alert-success d-none">Your Submission was Successful</p>
+                    <button onClick={onButtonClickHandler} type="submit" id="btnSubmit" className="btn btn-primary">Submit!</button>
                     </form>
                 </div>
             </main>

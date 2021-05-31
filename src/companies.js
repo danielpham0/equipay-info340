@@ -1,9 +1,9 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import amazon_logo from "./imgs/amazon_logo.png";
 import google_logo from "./imgs/google_logo.png";
 import microsoft_logo from "./imgs/microsoft_logo.png";
-import {Nav} from './App';
+import {Nav, FormButton} from './App';
 
 function CompaniesPage(props){
     return (
@@ -35,10 +35,7 @@ function CompaniesPage(props){
             </Link>
             </div>
         </div>
-    
-        <div className="userDataDiv">
-            <button className="userDataBtn"><a className="userDataLink" href="form.html">Self Report Data</a></button>
-        </div>
+        <FormButton />
       </div>
     )
 }

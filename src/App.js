@@ -2,7 +2,7 @@ import RolePage from './Roles';
 import CompaniesPage from './Companies';
 import LandingPage from './Landing';
 import ChartPage from './ChartPage';
-import FormPage from './form';
+import FormPage from './Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Route, Switch, Link, Redirect, NavLink} from 'react-router-dom';
@@ -68,6 +68,12 @@ export function CompanyHeader(props) {
       <span className="logo" style={{backgroundImage: `url(${logo})`}} aria-hidden="true"></span> <h2> {props.company.charAt(0).toUpperCase() + props.company.slice(1)} - {props.description} </h2>
     </div>
   );
+}
+
+export function FormButton(props){
+  return (<div className="userDataDiv">
+    <button className="userDataBtn"><Link to="/form" className="userDataLink"> Self Report Data </Link></button>
+  </div>);
 }
 
 export default App;

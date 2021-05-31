@@ -1,13 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import equalpay from "./imgs/equalpay.png";
+import Container from 'react-bootstrap/Container';
 
 function LandingPage(props){
     return (
         <div>
-            <header>
+            {/* <header>
                 <h1>Learn More About EquiPay</h1>
-            </header>
+            </header> */}
             <main>
                 <nav>
                 <ul>
@@ -18,7 +19,7 @@ function LandingPage(props){
                 <div className="row">
                     <div className="col-12 col-md-6 p-3">
                     <h2>Understand Your Worth</h2>
-                    <img className="picture"  alt="an image showing equal pay" src={equalpay}></img>
+                    <img className="picture" alt="showing equal pay" src={equalpay}></img>
                     </div>
                     <div className="col-12 col-md-6 p-3">
                     <h2>Our Purpose</h2>
@@ -32,8 +33,10 @@ function LandingPage(props){
                     </div>
                 </div>
                 </div>
-                <h2>The Data</h2>
-                <p>The data set we used can we found <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fh1bdata.info%2Findex.php%3Fem%3DGoogle%26year%3D2019%26fbclid%3DIwAR2e4ffqUhUS2L32mxPVVmZ1T4j4K0jAZcdWzjWFKHPkk_VD_akU-ui-gZk&h=AT1_Imm1Ss-gHPOIJqww85KFcbNTT8xGB0MWQ7Mv1MlMud0U2nroHXzhfqo7QMbr0l9FelCvs6L408FKdja3iWrq8IOJUrISI4MDy--MxFEeNaaPN7W1L-5mIDh958NkDaSJpQ">here.</a> This data only includes company, role, and salary information. Taking this into account we "made up" the other parts of the data set in a way that would show the data is changing for different demographics. To clarify data related to roles and salary is correct but is not correctly alligned with what demographics they coorespond to.</p>
+                <Container>
+                    <h2>The Data</h2>
+                    <div className="bottomSection">The data set we used can we found <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fh1bdata.info%2Findex.php%3Fem%3DGoogle%26year%3D2019%26fbclid%3DIwAR2e4ffqUhUS2L32mxPVVmZ1T4j4K0jAZcdWzjWFKHPkk_VD_akU-ui-gZk&h=AT1_Imm1Ss-gHPOIJqww85KFcbNTT8xGB0MWQ7Mv1MlMud0U2nroHXzhfqo7QMbr0l9FelCvs6L408FKdja3iWrq8IOJUrISI4MDy--MxFEeNaaPN7W1L-5mIDh958NkDaSJpQ">here.</a> This data only includes company, role, and salary information. Taking this into account we "made up" the other parts of the data set in a way that would show the data is changing for different demographics. To clarify data related to roles and salary is correct but is not correctly alligned with what demographics they coorespond to.</div>
+                </Container>
             </main>
         </div>
     )
