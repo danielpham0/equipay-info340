@@ -65,9 +65,21 @@ function Chart(props) {
       }
   }
 
+  let title = 'Salaries of' + identity + ' Employees at ' + props.company;
+  let charsPerLine = (width - 15) / 12; // Each character is roughly 12px wide on average
+  let lastBreak = 0;
+  for (let i = 0; i < title.length; i++) {
+    if (i - lastBreak > charsPerLine && title[i] === ' ') {
+      title = title.slice(0, i) + '<br>' + title.slice(i);
+      lastBreak = i;
+    }
+  }
   let layout = {
-    title: 'Salaries of' + identity + ' Employees at ' + props.company,
-    width: width
+    title: title,
+    width: width,
+  }
+  if (width < 425) {
+    layout.legend = {x: -0.3, y: -0.25};
   }
 
   return (
