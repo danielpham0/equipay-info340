@@ -39,7 +39,7 @@ function ChartPage(props) {
           <Col lg={9}>
             <Chart
               className='mb-3 ml-lg-0 mt-lg-3'
-              data={props.data[company]}
+              data={props.data[company]} 
               chartNeedsUpdate={chartNeedsUpdate}
               setUpdate={setUpdate}
               company={capitalizedCompany}
