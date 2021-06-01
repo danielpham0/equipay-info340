@@ -1,9 +1,60 @@
-import React from 'react';
+import {React, useState} from 'react';
 import { NavLink } from 'react-router-dom';
+import firebase from 'firebase/app';
+
+const companyOptions = [
+    {label: "Google", value: "google"},
+    {label: "Amazon", value: "amazon"},
+    {label: "Microsoft", value: "microsoft"},
+    {label: "Netflix", value: "netflix"}
+]
+const ethnicityOptions = [
+    {label: "Not Listed", value: "n/a"},
+    {label: "American Indian", value: "american indian"},
+    {label: "Asian", value: "asian"},
+    {label: "Black", value: "black"},
+    {label: "Hispanic", value: "hispanic"},
+    {label: "Pacific Islander", value: "pacific islander"},
+    {label: "White", value: "white"}
+]
+const genderOptions = [
+    {label: "Not Listed", value: "n/a"},
+    {label: "Female", value: "female"},
+    {label: "Gender Fluid", value: "gender fluid"},
+    {label: "Male", value: "male"},
+    {label: "Transgender Male", value: "transgender male"},
+    {label: "Transgender Female", value: "transgender female"},
+    {label: "Non-binary", value: "non-binary"}
+]
+const orientationOptions = [
+    {label: "Not Listed", value: "n/a"},
+    {label: "Asexual", value: "asexual"},
+    {label: "Bisexual", value: "bisexual"},
+    {label: "Heterosexual", value: "heterosexual"},
+    {label: "Homosexual", value: "homosexual"},
+    {label: "Pansexual", value: "pansexual"},
+    {label: "Queer", value: "queer"},
+    {label: "Fluid", value: "fluid"}
+]
 
 function FormPage(props){
-    function onButtonClickHandler(){
-        window.alert("Your submission has been successful!")
+    const [form, setForm] = useState({"Company": "Google", "Job Title": "",
+        "Base Salary": "", "Ethnicity": "Not Listed", "Gender": "Not Listed", 
+        "Sexual Orientation": "Not Listed"});
+    function onButtonClickHandler(event){
+        event.preventDefault();
+        const ref = firebase.database().ref('companies').child(form.Company);
+        let entry = {...form};
+        delete entry.Company
+        entry["Base Salary"] = parseInt(entry["Base Salary"]);
+        ref.push(entry);
+        window.alert("Your submission has been successful!");
+    }
+    const handleChange = (event) => {
+        const value = event.target.value;
+        setForm({...form,
+                [event.target.name]: value
+            })
     }
     return (
         <div>
@@ -20,64 +71,55 @@ function FormPage(props){
                     <div className="form-group row">
                         <label htmlFor="companyInput" className="col-lg-1">Company</label>
                         <div className="col-lg-11">
-                        <input type="text" id="companyInput" className="form-control" required></input>
+                        <select id="companyInput" name="Company" value={form["Company"]} onChange={handleChange} className="form-control" required>
+                        {companyOptions.map((option) => (
+                                <option key={option.value} value={option.value}>{option.label}</option>
+                            ))}
+                        </select>
                         <div className="invalid-feedback">Please provide a company name</div>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="roleInput" className="col-lg-1">Role</label>
                         <div className="col-lg-11">
-                        <input type="text" id="roleInput" className="form-control" required></input>
+                        <input type="text" id="roleInput" name="Job Title" value={form["Job Title"]} onChange={handleChange} className="form-control" required />
                         <div className="invalid-feedback">Please provide a role</div>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="salaryInput" className="col-lg-1">Salary</label>
                         <div className="col-lg-11">
-                        <input type="number" id="salaryInput" className="form-control" required></input>
+                        <input type="number" id="salaryInput" name="Base Salary" value={form["Base Salary"]} onChange={handleChange} className="form-control" required />
                         <div className="invalid-feedback">Please provide a salary</div>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="genderInput" className="col-lg-1">Gender</label>
                         <div className="col-lg-11">
-                        <select id="genderInput" name="gender" className="form-control" required>
-                            <option value="n/a" defaultValue>N/A</option>
-                            <option value="female">Female</option>
-                            <option value="gender fluid">Gender Fluid</option>
-                            <option value="male">Male</option>
-                            <option value="transgender male">Transgender Male</option>
-                            <option value="transgender female">Transgender Female</option>
-                            <option value="non-binary">Non-binary</option>
+                        <select id="genderInput" name="Gender" value={form["Gender"]} onChange={handleChange} className="form-control" required>
+                            {genderOptions.map((option) => (
+                                <option key={option.value} value={option.value}>{option.label}</option>
+                            ))}
                         </select>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="ethnicityInput" className="col-lg-1">Ethnicity</label>
                         <div className="col-lg-11">
-                        <select id="ethnicityInput" name="ethnicity" className="form-control" required>
-                        <option value="n/a" defaultValue>N/A</option>
-                        <option value="american indian">American Indian</option>
-                        <option value="asian">Asian</option>
-                        <option value="black">Black</option>
-                        <option value="hispanic">Hispanic</option>
-                        <option value="pacific islander">Pacific Islander</option>
-                        <option value="white">White</option>
+                        <select id="ethnicityInput" name="Ethnicity" value={form["Ethnicity"]} onChange={handleChange} className="form-control" required>
+                        {ethnicityOptions.map((option) => (
+                                <option key={option.value} value={option.value}>{option.label}</option>
+                            ))}
                         </select>
                         </div>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="orientationInput" className="col-lg-1">Sexual Orientation</label>
                         <div className="col-lg-11">
-                        <select id="orientationInput" name="sexual orientation" className="form-control" required>
-                            <option value="n/a" defaultValue>N/A</option>
-                            <option value="asexual">Asexual</option>
-                            <option value="bisexual">Bisexual</option>
-                            <option value="heterosexual">Heterosexual</option>
-                            <option value="homosexual">Homosexual</option>
-                            <option value="pansexual">Pansexual</option>
-                            <option value="queer">Queer</option>
-                            <option value="fluid">Fluid</option>
+                        <select id="orientationInput" name="Sexual Orientation" value={form["Sexual Orientation"]} onChange={handleChange} className="form-control" required>
+                        {orientationOptions.map((option) => (
+                                <option key={option.value} value={option.value}>{option.label}</option>
+                            ))}
                         </select>
                         </div>
                     </div>
