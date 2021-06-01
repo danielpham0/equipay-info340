@@ -4,11 +4,14 @@ import LandingPage from './Landing';
 import ChartPage from './ChartPage';
 import FormPage from './Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {useState, useEffect} from 'react';
+import Spinner from 'react-bootstrap/Spinner'
 import './App.css';
 import { Route, Switch, Link, Redirect, NavLink} from 'react-router-dom';
 import amazon_logo from "./imgs/amazon_logo.png";
 import google_logo from "./imgs/google_logo.png";
 import microsoft_logo from "./imgs/microsoft_logo.png";
+import firebase from 'firebase/app';
 
 let logos = {
   google: google_logo,
@@ -17,6 +20,20 @@ let logos = {
 };
 
 function App(props) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState(0);
+  useEffect(() => {
+    const ref = firebase.database().ref('companies');
+    ref.on('value', (snapshot)=>{
+      setData(snapshot.val());
+      setIsLoading(false);
+    });
+  }, []);
+  if(isLoading){
+    return(<Spinner animation="border" role="status">
+      <span className="sr-only">Loading...</span>
+    </Spinner>)
+  }
   return (
     <div className="App">
       <header>
@@ -29,8 +46,8 @@ function App(props) {
           <Switch>
             <Route path='/landing'> <LandingPage /> </Route>
             <Route exact path='/'> <CompaniesPage /> </Route>
-            <Route path='/roles/:company'> <RolePage data={props.data}/> </Route>
-            <Route path='/chart/:company/:role'> <ChartPage data={props.data} /> </Route>
+            <Route path='/roles/:company'> <RolePage data={data}/> </Route>
+            <Route path='/chart/:company/:role'> <ChartPage data={data}/> </Route>
             <Route path='/form'> <FormPage /> </Route>
             <Route path='/'>
               <Redirect to='/' />

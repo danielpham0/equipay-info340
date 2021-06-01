@@ -21,7 +21,7 @@ function RolePage(props){
         <Nav links={navLinks} />
         <CompanyHeader company={company} description={'Roles'} />
         <p className="section_desc"> Select a role to learn about its salary data! </p>
-        <RoleFrame data={props.data} company={company}/>
+        <RoleFrame data={props.data[company]} company={company}/>
         <FormButton />
     </div>)
 }
