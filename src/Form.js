@@ -9,38 +9,38 @@ const companyOptions = [
     {label: "Netflix", value: "netflix"}
 ]
 const ethnicityOptions = [
-    {label: "Not Listed", value: "n/a"},
-    {label: "American Indian", value: "american indian"},
-    {label: "Asian", value: "asian"},
-    {label: "Black", value: "black"},
-    {label: "Hispanic", value: "hispanic"},
-    {label: "Pacific Islander", value: "pacific islander"},
-    {label: "White", value: "white"}
+    {label: "Not Listed", value: "N/A"},
+    {label: "American Indian", value: "American Indian"},
+    {label: "Asian", value: "Asian"},
+    {label: "Black", value: "Black"},
+    {label: "Hispanic", value: "Hispanic"},
+    {label: "Pacific Islander", value: "Pacific Islander"},
+    {label: "White", value: "White"}
 ]
 const genderOptions = [
-    {label: "Not Listed", value: "n/a"},
-    {label: "Female", value: "female"},
-    {label: "Gender Fluid", value: "gender fluid"},
-    {label: "Male", value: "male"},
-    {label: "Transgender Male", value: "transgender male"},
-    {label: "Transgender Female", value: "transgender female"},
-    {label: "Non-binary", value: "non-binary"}
+    {label: "Not Listed", value: "N/A"},
+    {label: "Female", value: "Female"},
+    {label: "Gender Fluid", value: "Gender Fluid"},
+    {label: "Male", value: "Male"},
+    {label: "Transgender Male", value: "Transgender Male"},
+    {label: "Transgender Female", value: "Transgender Female"},
+    {label: "Non-binary", value: "Non-Binary"}
 ]
 const orientationOptions = [
-    {label: "Not Listed", value: "n/a"},
-    {label: "Asexual", value: "asexual"},
-    {label: "Bisexual", value: "bisexual"},
-    {label: "Heterosexual", value: "heterosexual"},
-    {label: "Homosexual", value: "homosexual"},
-    {label: "Pansexual", value: "pansexual"},
-    {label: "Queer", value: "queer"},
-    {label: "Fluid", value: "fluid"}
+    {label: "Not Listed", value: "N/A"},
+    {label: "Asexual", value: "Asexual"},
+    {label: "Bisexual", value: "Bisexual"},
+    {label: "Heterosexual", value: "Heterosexual"},
+    {label: "Homosexual", value: "Homosexual"},
+    {label: "Pansexual", value: "Pansexual"},
+    {label: "Queer", value: "Queer"},
+    {label: "Fluid", value: "Fluid"}
 ]
 
 function FormPage(props){
-    const [form, setForm] = useState({"Company": "Google", "Job Title": "",
-        "Base Salary": "", "Ethnicity": "Not Listed", "Gender": "Not Listed", 
-        "Sexual Orientation": "Not Listed"});
+    const [form, setForm] = useState({"Company": "google", "Job Title": "",
+        "Base Salary": "", "Ethnicity": "n/a", "Gender": "n/a", 
+        "Sexual Orientation": "n/a"});
     function onButtonClickHandler(event){
         event.preventDefault();
         const ref = firebase.database().ref('companies').child(form.Company);
@@ -48,6 +48,7 @@ function FormPage(props){
         delete entry.Company
         entry["Base Salary"] = parseInt(entry["Base Salary"]);
         ref.push(entry);
+        console.log(entry);
         window.alert("Your submission has been successful!");
     }
     const handleChange = (event) => {

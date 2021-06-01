@@ -20,6 +20,10 @@ function ChartPage(props) {
   let navLinks = [{Companies: "/"},
     {[capitalizedCompany]: "/roles/" + company},
     {[role]: "/chart/" + company + "/" + urlParams.role}];
+  const dataArray = [];
+    Object.keys(props.data[company]).forEach((key) => {
+      dataArray.push(props.data[company][key]);
+    });
 
   const [chartNeedsUpdate, setUpdate] = React.useState(false);
   return (
@@ -32,14 +36,14 @@ function ChartPage(props) {
           <Col lg={3}>
             <ChartForm
               className='my-3 ml-lg-3'
-              data={props.data[company]}
+              data={dataArray}
               setUpdate={setUpdate}
             />
           </Col>
           <Col lg={9}>
             <Chart
               className='mb-3 ml-lg-0 mt-lg-3'
-              data={props.data[company]} 
+              data={dataArray} 
               chartNeedsUpdate={chartNeedsUpdate}
               setUpdate={setUpdate}
               company={capitalizedCompany}

@@ -16,12 +16,16 @@ function RolePage(props){
     const urlParams = useParams();
     let company = urlParams.company;
     let navLinks = [{Companies: "/"}, {[company.charAt(0).toUpperCase() + company.slice(1)]: "/roles/" + company}];
+    const dataArray = [];
+    Object.keys(props.data[company]).forEach((key) => {
+      dataArray.push(props.data[company][key]);
+    });
     return(
     <div>
         <Nav links={navLinks} />
         <CompanyHeader company={company} description={'Roles'} />
         <p className="section_desc"> Select a role to learn about its salary data! </p>
-        <RoleFrame data={props.data[company]} company={company}/>
+        <RoleFrame data={dataArray} company={company}/>
         <FormButton />
     </div>)
 }
