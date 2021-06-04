@@ -6,6 +6,7 @@ import google_card from "./imgs/google_card.jpeg";
 import microsoft_card from "./imgs/microsoft_card.jpeg";
 import lodash from 'lodash';
 
+// Object of imported backgrounds for role cards, one for each company.
 let cardBackgrounds = {
     google: google_card,
     amazon: amazon_card,
@@ -16,10 +17,12 @@ function RolePage(props){
     const urlParams = useParams();
     let company = urlParams.company;
     let navLinks = [{Companies: "/"}, {[company.charAt(0).toUpperCase() + company.slice(1)]: "/roles/" + company}];
+    // Turns list of objects into an array, allowing our data to be used more easily
     const dataArray = [];
     Object.keys(props.data[company]).forEach((key) => {
       dataArray.push(props.data[company][key]);
     });
+    console.log(dataArray);
     return(
     <div>
         <Nav links={navLinks} />
@@ -30,9 +33,12 @@ function RolePage(props){
     </div>)
 }
 
+// Role card component which takes in a valueObj {type of value, value} to display role data on the card.
+// Also takes in company and role title to display role card information.
 function RoleCard(props) {
   let keys = Object.keys(props.valueObj);
   let titleString = props.title.replace(/\s/g, '_').toLowerCase();
+  // On click, links user to the chart for that specific company and role
   let url = '/chart/' + props.company + "/" + titleString;
   let background = cardBackgrounds[props.company];
   return(<div className='role_card'>
@@ -48,6 +54,8 @@ function RoleCard(props) {
   </div>)
 }
 
+// List of role cards based on the number of unique roles from a company
+// Takes in data prop
 function RoleList(props){
   // Used method of finding distinct values from array of json files from here:
   // https://codeburst.io/javascript-array-distinct-5edc93501dc4
@@ -65,11 +73,14 @@ function RoleList(props){
   </div>);
 }
 
+// Renders Role List with type of information ('Range') or ('Average Salary') using a button
 function RoleFrame(props) {
   const [option, setOption] = useState('Average Salary');
+  // Changes option if button is pressed
   const handleClick = (event) => {
     setOption(option === 'Average Salary' ? 'Range' : 'Average Salary');
   }
+  // Renders depending on selected option
   if(option === 'Range'){
     return(<div>
     <div className="btn-group btn-group-toggle" data-toggle="buttons">

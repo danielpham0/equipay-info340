@@ -13,6 +13,7 @@ import google_logo from "./imgs/google_logo.png";
 import microsoft_logo from "./imgs/microsoft_logo.png";
 import firebase from 'firebase/app';
 
+// List of imported logo images
 let logos = {
   google: google_logo,
   amazon: amazon_logo,
@@ -20,8 +21,10 @@ let logos = {
 };
 
 function App(props) {
+  // State hooks, one for displaying a loading circle and one for the app data
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(0);
+  // Takes a snapshot of the firebase database to pass into other components as a prop
   useEffect(() => {
     const ref = firebase.database().ref('companies');
     ref.on('value', (snapshot)=>{
@@ -29,6 +32,7 @@ function App(props) {
       setIsLoading(false);
     });
   }, []);
+  // When isLoading show spinner instead of rendering application
   if(isLoading){
     return(<Spinner animation="border" role="status">
       <span className="sr-only">Loading...</span>
@@ -63,6 +67,7 @@ function App(props) {
   );
 }
 
+// Utilizes a list of objects containing {link name, link} to produce nav bar in page content
 export function Nav(props){
   let links = props.links.map((link, index) => {
     let linkName = Object.keys(link)[0];
@@ -78,6 +83,7 @@ export function Nav(props){
   return(<nav><ul>{links}</ul></nav>);
 }
 
+// Takes in company name and header description as props, producing a header with a company logo.
 export function CompanyHeader(props) {
   let logo = logos[props.company];
   return (
@@ -87,6 +93,7 @@ export function CompanyHeader(props) {
   );
 }
 
+// Component for user input form.
 export function FormButton(props){
   return (<div className="userDataDiv">
     <button className="userDataBtn"><Link to="/form" className="userDataLink"> Self Report Data </Link></button>
