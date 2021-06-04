@@ -32,12 +32,6 @@ function App(props) {
       setIsLoading(false);
     });
   }, []);
-  // When isLoading show spinner instead of rendering application
-  if(isLoading){
-    return(<Spinner animation="border" role="status">
-      <span className="sr-only">Loading...</span>
-    </Spinner>)
-  }
   return (
     <div className="App">
       <header>
@@ -47,16 +41,21 @@ function App(props) {
         </div>
       </header>
       <main>
-          <Switch>
-            <Route path='/landing'> <LandingPage /> </Route>
-            <Route exact path='/'> <CompaniesPage /> </Route>
-            <Route path='/roles/:company'> <RolePage data={data}/> </Route>
-            <Route path='/chart/:company/:role'> <ChartPage data={data}/> </Route>
-            <Route path='/form'> <FormPage /> </Route>
-            <Route path='/'>
-              <Redirect to='/' />
-            </Route>
-          </Switch>
+        <Switch>
+          <Route path='/landing'> <LandingPage /> </Route>
+          <Route exact path='/'> <CompaniesPage /> </Route>
+          {/* When isLoading show spinner instead of rendering data-reliant components */}
+          <Route path='/roles/:company'>
+            {isLoading ? <WrapSpinner /> : <RolePage data={data} />}
+          </Route>
+          <Route path='/chart/:company/:role'>
+            {isLoading ? <WrapSpinner /> : <ChartPage data={data} />}
+          </Route>
+          <Route path='/form'> <FormPage /> </Route>
+          <Route path='/'>
+            <Redirect to='/' />
+          </Route>
+        </Switch>
       </main>
       <footer className="footer">
         <p>Daniel Pham, Shane Fretwell, Ryan Carroll</p>
@@ -98,6 +97,14 @@ export function FormButton(props){
   return (<div className="userDataDiv">
     <button className="userDataBtn"><Link to="/form" className="userDataLink"> Self Report Data </Link></button>
   </div>);
+}
+
+function WrapSpinner() {
+  return (
+    <Spinner animation="border" role="status">
+      <span className="sr-only">Loading...</span>
+    </Spinner>
+  )
 }
 
 export default App;
