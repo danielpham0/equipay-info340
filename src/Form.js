@@ -131,7 +131,7 @@ function FormPage(props){
                         <div className="invalid-feedback">Please provide a date</div>
                         </div>
                     </div>
-                    <button onClick={onButtonClickHandler} type="submit" id="btnSubmit" className="btn btn-primary">Submit!</button>
+                    <button onSubmit={onButtonClickHandler} type="submit" id="btnSubmit" className="btn btn-primary">Submit!</button>
                     </form>
                 </div>
             </main>
