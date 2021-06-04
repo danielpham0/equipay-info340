@@ -28,7 +28,6 @@ function Chart(props) {
   console.log(filteredSalaries)
 
   let baseline = lodash.map(props.data, 'Base Salary');
-  let max = Math.max(baseline);
 
   let datasets = [
     {
@@ -36,7 +35,7 @@ function Chart(props) {
       name: 'All ' + (props.role === 'All Roles' ? 'Roles' : props.role + 's'),
       type: 'histogram',
       histnorm: 'probability',
-      xbins: {end: max, size: 10000, start: 0}
+      xbins: {size: 10000}
     }
   ];
   datasets[1] = Object.assign({}, datasets[0]);
@@ -44,6 +43,7 @@ function Chart(props) {
   datasets[1].name = 'Selected Demographic';
 
   const [width, setWidth] = React.useState(
+    // If the window is less than medium size, the chart should take up almost the full page width, otherwise it should leave room for the form that changes the chart to the side.
     window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.675)
   );
 
