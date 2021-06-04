@@ -2,14 +2,33 @@ import {React, useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import firebase from 'firebase/app';
 
+// Java script page that develops the html for the form page
+// This page also add interactivity as the user has to input different
+// data into the form. The form uses firebase to track what data is being
+// entered into the form. This data is then reflected into our graphs
+
+//One concern we have is people inputing data that is false because its hard
+//to confirm they actually work at a certain company
+
 const companyOptions = [
+    {label: "Select Company", value: ""},
     {label: "Google", value: "google"},
     {label: "Amazon", value: "amazon"},
     {label: "Microsoft", value: "microsoft"},
     {label: "Netflix", value: "netflix"}
 ]
+
+const roleOptions = [
+    {label: "Select Role", value: ""},
+    {label: "Data Scientist", value: "data scientist"},
+    {label: "Hardware Engineer", value: "hardware engineer"},
+    {label: "Product Manager", value: "product manager"},
+    {label: "Program Manager", value: "program manager"},
+    {label: "Software Engineer", value: "Software Engineer"}
+]
+
 const ethnicityOptions = [
-    {label: "Not Listed", value: "N/A"},
+    {label: "Select Ethnicity", value: ""},
     {label: "American Indian", value: "American Indian"},
     {label: "Asian", value: "Asian"},
     {label: "Black", value: "Black"},
@@ -18,7 +37,7 @@ const ethnicityOptions = [
     {label: "White", value: "White"}
 ]
 const genderOptions = [
-    {label: "Not Listed", value: "N/A"},
+    {label: "Select Ethnicity", value: ""},
     {label: "Female", value: "Female"},
     {label: "Gender Fluid", value: "Gender Fluid"},
     {label: "Male", value: "Male"},
@@ -27,7 +46,7 @@ const genderOptions = [
     {label: "Non-binary", value: "Non-Binary"}
 ]
 const orientationOptions = [
-    {label: "Not Listed", value: "N/A"},
+    {label: "Select Ethnicity", value: ""},
     {label: "Asexual", value: "Asexual"},
     {label: "Bisexual", value: "Bisexual"},
     {label: "Heterosexual", value: "Heterosexual"},
@@ -38,9 +57,9 @@ const orientationOptions = [
 ]
 
 function FormPage(props){
-    const [form, setForm] = useState({"Company": "google", "Job Title": "",
-        "Base Salary": "", "Ethnicity": "n/a", "Gender": "n/a", 
-        "Sexual Orientation": "n/a"});
+    const [form, setForm] = useState({"Company": "", "Job Title": "",
+        "Base Salary": "", "Ethnicity": "", "Gender": "", 
+        "Sexual Orientation": ""});
     function onButtonClickHandler(event){
         event.preventDefault();
         const ref = firebase.database().ref('companies').child(form.Company);
@@ -83,7 +102,11 @@ function FormPage(props){
                     <div className="form-group row">
                         <label htmlFor="roleInput" className="col-lg-1">Role</label>
                         <div className="col-lg-11">
-                        <input type="text" id="roleInput" name="Job Title" value={form["Job Title"]} onChange={handleChange} className="form-control" required />
+                        <select id="roleInput" name="Job Title" value={form["Job Title"]} onChange={handleChange} className="form-control" required>
+                        {roleOptions.map((option) => (
+                                <option key={option.value} value={option.value}>{option.label}</option>
+                            ))}
+                            </select>
                         <div className="invalid-feedback">Please provide a role</div>
                         </div>
                     </div>
@@ -124,13 +147,13 @@ function FormPage(props){
                         </select>
                         </div>
                     </div>
-                    <div className="form-group row">
+                    {/* <div className="form-group row">
                         <label htmlFor="dateInput" className="col-lg-1">Date</label>
                         <div className="col-lg-11">
                         <input type="date" id="dateInput" className="form-control" required></input>
                         <div className="invalid-feedback">Please provide a date</div>
                         </div>
-                    </div>
+                    </div> */}
                     <button onSubmit={onButtonClickHandler} type="submit" id="btnSubmit" className="btn btn-primary">Submit!</button>
                     </form>
                 </div>

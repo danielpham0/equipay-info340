@@ -3,6 +3,10 @@ import { NavLink } from 'react-router-dom';
 import equalpay from "./imgs/equalpay.png";
 import Container from 'react-bootstrap/Container';
 
+//This page generates the landing page; A page that describes the presimise of our problem and how
+//we set out to solve it. This page also references the data we are using and has many important details
+
+
 function LandingPage(props){
     return (
         <div>
