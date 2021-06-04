@@ -25,7 +25,6 @@ function Chart(props) {
   let filteredSalaries = lodash.map(filtered, 'Base Salary');
 
   let baseline = lodash.map(props.data, 'Base Salary');
-  let max = Math.max(baseline);
 
   let datasets = [
     {
@@ -33,7 +32,7 @@ function Chart(props) {
       name: 'All ' + (props.role === 'All Roles' ? 'Roles' : props.role + 's'),
       type: 'histogram',
       histnorm: 'probability',
-      xbins: {end: max, size: 10000, start: 0}
+      xbins: {size: 10000}
     }
   ];
   datasets[1] = Object.assign({}, datasets[0]);
