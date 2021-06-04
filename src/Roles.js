@@ -22,7 +22,7 @@ function RolePage(props){
     Object.keys(props.data[company]).forEach((key) => {
       dataArray.push(props.data[company][key]);
     });
-    console.log(dataArray);
+    // console.log(dataArray);
     return(
     <div>
         <Nav links={navLinks} />
@@ -109,10 +109,10 @@ function RoleFrame(props) {
 function retrieveSalaryValue(salaryData, type) {
   let valueObj = {};
   if (type === 'Range') {
-    let val = '$' + Math.min(...salaryData).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'k - $' + Math.max(...salaryData).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'k'; 
+    let val = '$' + Math.min(...salaryData).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'k - $' + Math.max(...salaryData).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'k';
     valueObj = {'Range': val};
   } else {
-    let val = '$' + Math.round((salaryData.reduce((a,b) => a + b, 0) / salaryData.length)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'k'; 
+    let val = '$' + Math.round((salaryData.reduce((a,b) => a + b, 0) / salaryData.length)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + 'k';
     valueObj = {'Average Salary': val};
   }
   return valueObj;

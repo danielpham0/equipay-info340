@@ -36,7 +36,7 @@ function Chart(props) {
     }
   }
 
-  console.log(filters);
+  // console.log(filters);
   let filtered = lodash.filter(props.data, filters);
   let filteredSalaries = lodash.map(filtered, 'Base Salary');
 

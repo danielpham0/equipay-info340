@@ -81,7 +81,7 @@ function FormSelections(props) {
     // After component is generated, set its value to the current search value
     let search = queryString.parse(window.location.search);
     document.getElementById(label).value = search[label] || 'All';
-  });
+  }, []);
   return (
     <Form.Group controlId={label}>
       <Form.Label>{label}</Form.Label>

@@ -30,6 +30,7 @@ function App(props) {
     ref.on('value', (snapshot)=>{
       setData(snapshot.val());
       setIsLoading(false);
+      document.querySelector('main').classList.remove('pt-2');
     });
   }, []);
   return (
@@ -100,8 +101,9 @@ export function FormButton(props){
 }
 
 function WrapSpinner() {
+  useEffect(() => {document.querySelector('main').classList.add('pt-2')});
   return (
-    <Spinner animation="border" role="status">
+    <Spinner className="mx-auto d-block" animation="border" role="status">
       <span className="sr-only">Loading...</span>
     </Spinner>
   )
