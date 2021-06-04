@@ -9,12 +9,12 @@ import queryString from 'query-string';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-/*
-```json
+/**
+```
 props = {
-..'data': data for the current company
-..'setUpdate': function to set the chartNeedsUpdate state variable of the chart component to 'true'
-..'className': classes to apply to this component
+  data: // data for the current company
+  setUpdate: // function to set the chartNeedsUpdate state variable of the to 'true'; this causes the chart to update with the current (changed) filters
+  className: // classes to apply to this component
 }
 ```
  */
@@ -67,11 +67,11 @@ function ChartForm(props) {
   );
 }
 
-/*
-```json
+/**
+```
 props = {
-..'options': an array of <option>'s this component will contain
-..'label': the label of this form group, which also corresponds to the search parameters in the URL
+  options: // an array of <option>'s this component will contain
+  label: // the label of this form group, which also corresponds to the search parameters in the URL
 }
 ```
  */

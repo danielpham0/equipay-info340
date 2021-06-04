@@ -1,8 +1,23 @@
+/*
+ * This module handles the application's charts and all necessary data manipulation
+ */
 import React from 'react';
 import Plot from 'react-plotly.js';
 import lodash from 'lodash';
 import queryString from 'query-string';
 
+/**
+```
+props = {
+  className: // classes to be assigned to this component
+  data: // The data corresponding to the current company
+  chartNeedsUpdate: // a state variable for if the chart needs to update to reflect new filter selections
+  setUpdate: // function to set the chartNeedsUpdate state variable of the to 'true'; this causes the chart to update with the current (changed) filters
+  company: // The name of the current company, capitalized for display to the user
+  role: // The name of the current role, capitalized for display to the user
+}
+```
+ */
 function Chart(props) {
   React.useEffect(() => {
     if (props.chartNeedsUpdate) {
