@@ -39,15 +39,15 @@ const orientationOptions = [
 
 function FormPage(props){
     const [form, setForm] = useState({"Company": "google", "Job Title": "",
-        "Base Salary": "", "Ethnicity": "n/a", "Gender": "n/a", 
+        "Base Salary": 0, "Ethnicity": "n/a", "Gender": "n/a", 
         "Sexual Orientation": "n/a"});
     function onButtonClickHandler(event){
         event.preventDefault();
-        const ref = firebase.database().ref('companies').child(form.Company);
+        const ref = firebase.database().ref('companies');
         let entry = {...form};
         delete entry.Company
         entry["Base Salary"] = parseInt(entry["Base Salary"]);
-        ref.push(entry);
+        ref.child(form.Company.toLowerCase()).push(entry);
         console.log(entry);
         window.alert("Your submission has been successful!");
     }
@@ -72,7 +72,8 @@ function FormPage(props){
                     <div className="form-group row">
                         <label htmlFor="companyInput" className="col-lg-1">Company</label>
                         <div className="col-lg-11">
-                        <select id="companyInput" name="Company" value={form["Company"]} onChange={handleChange} className="form-control" required>
+                        <select id="companyInput" name="Company" value={form["Company"]} onChange={handleChange} 
+                            className="form-control" required>
                         {companyOptions.map((option) => (
                                 <option key={option.value} value={option.value}>{option.label}</option>
                             ))}

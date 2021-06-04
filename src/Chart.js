@@ -4,6 +4,7 @@ import lodash from 'lodash';
 import queryString from 'query-string';
 
 function Chart(props) {
+  console.log(props.data);
   React.useEffect(() => {
     if (props.chartNeedsUpdate) {
       props.setUpdate(false);
@@ -22,7 +23,9 @@ function Chart(props) {
   }
 
   let filtered = lodash.filter(props.data, filters);
+  console.log(filtered)
   let filteredSalaries = lodash.map(filtered, 'Base Salary');
+  console.log(filteredSalaries)
 
   let baseline = lodash.map(props.data, 'Base Salary');
   let max = Math.max(baseline);
