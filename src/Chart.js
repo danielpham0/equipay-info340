@@ -27,6 +27,9 @@ function Chart(props) {
 
   let search = window.location.search;
   let filters = queryString.parse(search);
+  if (props.role !== 'All Roles') {
+    filters['Job Title'] = props.role.toUpperCase();
+  }
 
   for (let filterKey of Object.keys(filters)) {
     // If the data does not contain a demographic category matching the filter, ignore it.
@@ -36,15 +39,17 @@ function Chart(props) {
     }
   }
 
-  // console.log(filters);
+  console.log(filters);
   let filtered = lodash.filter(props.data, filters);
   let filteredSalaries = lodash.map(filtered, 'Base Salary');
 
-  let baseline = lodash.map(props.data, 'Base Salary');
+  // If there is a role selected, the baseline is only data from that role
+  let baseline = filters['Job Title'] ? lodash.filter(props.data, filters) : props.data;
+  let baselineSalaries = lodash.map(baseline, 'Base Salary');
 
   let datasets = [
     {
-      x: baseline,
+      x: baselineSalaries,
       name: 'All ' + (props.role === 'All Roles' ? 'Roles' : props.role + 's'),
       type: 'histogram',
       histnorm: 'probability',
@@ -76,12 +81,12 @@ function Chart(props) {
 
   let identity = '';
   for (let key in filters) {
-      if (filters[key] !== 'All') {
+      if (filters[key] !== 'All' && key !== 'Job Title') {
           identity += ' ' + filters[key];
       }
   }
 
-  let title = 'Salaries of' + identity + ' Employees at ' + props.company;
+  let title = 'Salaries of' + identity + ' ' + (filters['Job Title'] ? props.role : 'Employee') + 's at ' + props.company;
   let charsPerLine = (width - 15) / 12; // Each character is roughly 12px wide on average
   let lastBreak = 0;
   for (let i = 0; i < title.length; i++) {
