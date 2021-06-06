@@ -7,6 +7,13 @@ import {CompanyHeader, Nav, FormButton} from './App';
 import Chart from './Chart';
 import ChartForm from './ChartForm';
 
+/**
+```
+props = {
+  data: the data table of salaries and demographics
+}
+```
+ */
 function ChartPage(props) {
   const urlParams = useParams();
   // capitalizing first letter of each using method here:
@@ -20,6 +27,7 @@ function ChartPage(props) {
   let navLinks = [{Companies: "/"},
     {[capitalizedCompany]: "/roles/" + company},
     {[role]: "/chart/" + company + "/" + urlParams.role}];
+  // Get the data table for the current company
   const dataArray = [];
     Object.keys(props.data[company]).forEach((key) => {
       dataArray.push(props.data[company][key]);
