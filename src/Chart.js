@@ -25,6 +25,7 @@ function Chart(props) {
     }
   });
 
+  // The URL contains the filters for the chart
   let search = window.location.search;
   let filters = queryString.parse(search);
   if (props.role !== 'All Roles') {
@@ -33,15 +34,14 @@ function Chart(props) {
 
   for (let filterKey of Object.keys(filters)) {
     // If the data does not contain a demographic category matching the filter, ignore it.
-    // This can only happen if the user is modifying the url in order to change the chart
+    // This can only happen if the user is directly modifying the url in order to change the chart
     if (!props.data[0][filterKey]) {
       delete filters[filterKey];
     }
   }
 
-  console.log(filters);
-  let filtered = lodash.filter(props.data, filters);
-  let filteredSalaries = lodash.map(filtered, 'Base Salary');
+  let filteredTable = lodash.filter(props.data, filters);
+  let filteredSalaries = lodash.map(filteredTable, 'Base Salary');
 
   // If there is a role selected, the baseline is only data from that role
   let baseline = filters['Job Title'] ? lodash.filter(props.data, filters) : props.data;
@@ -50,7 +50,7 @@ function Chart(props) {
   let datasets = [
     {
       x: baselineSalaries,
-      name: 'All ' + (props.role === 'All Roles' ? 'Roles' : props.role + 's'),
+      name: props.role === 'All Roles' ? props.role : 'All ' + props.role + 's',
       type: 'histogram',
       histnorm: 'probability',
       xbins: {size: 10000}
@@ -61,7 +61,7 @@ function Chart(props) {
   datasets[1].name = 'Selected Demographic';
 
   const [width, setWidth] = React.useState(
-    // If the window is less than medium size, the chart should take up almost the full page width, otherwise it should leave room for the form that changes the chart to the side.
+    // If the window is less than medium size, the chart should take up almost the full page width, otherwise it should leave room for the 'change chart' form to the side.
     window.innerWidth * (window.innerWidth < 992 ? 0.9 : 0.675)
   );
 
@@ -79,6 +79,7 @@ function Chart(props) {
     ro.observe(document.querySelector('html'));
   }
 
+  // Build up the string identifying the demographic the data has been filtered down to
   let identity = '';
   for (let key in filters) {
       if (filters[key] !== 'All' && key !== 'Job Title') {
@@ -87,6 +88,7 @@ function Chart(props) {
   }
 
   let title = 'Salaries of' + identity + ' ' + (filters['Job Title'] ? props.role : 'Employee') + 's at ' + props.company;
+  // Break the title into separate lines if necessary to fit the width of the chart
   let charsPerLine = (width - 15) / 12; // Each character is roughly 12px wide on average
   let lastBreak = 0;
   for (let i = 0; i < title.length; i++) {
@@ -99,6 +101,7 @@ function Chart(props) {
     title: title,
     width: width,
   }
+  // Put the legend below the plot if there isn't room to the right
   if (width < 425) {
     layout.legend = {x: -0.3, y: -0.25};
   }
