@@ -20,11 +20,11 @@ const companyOptions = [
 
 const roleOptions = [
     {label: "Select Role", value: ""},
-    {label: "Data Scientist", value: "data scientist"},
-    {label: "Hardware Engineer", value: "hardware engineer"},
-    {label: "Product Manager", value: "product manager"},
-    {label: "Program Manager", value: "program manager"},
-    {label: "Software Engineer", value: "Software Engineer"}
+    {label: "Data Scientist", value: "DATA SCIENTIST"},
+    {label: "Hardware Engineer", value: "HARDWARE ENGINEER"},
+    {label: "Product Manager", value: "PRODUCT MANAGER"},
+    {label: "Program Manager", value: "PROGRAM MANAGER"},
+    {label: "Software Engineer", value: "SOFTWARE ENGINEER"}
 ]
 
 const ethnicityOptions = [
@@ -62,11 +62,14 @@ function FormPage(props){
         "Sexual Orientation": ""});
     function onButtonClickHandler(event){
         event.preventDefault();
-        const ref = firebase.database().ref('companies').child(form.Company);
+        const ref = firebase.database().ref('companies');
         let entry = {...form};
         delete entry.Company
         entry["Base Salary"] = parseInt(entry["Base Salary"]);
-        ref.push(entry);
+        ref.child(form.Company.toLowerCase()).push(entry);
+        setForm({"Company": "", "Job Title": "",
+        "Base Salary": "", "Ethnicity": "", "Gender": "", 
+        "Sexual Orientation": ""});
         console.log(entry);
         window.alert("Your submission has been successful!");
     }
@@ -87,11 +90,12 @@ function FormPage(props){
                 <div className="container">
                     <p className="signUpForm">Input Your Own Data Below!</p>
                     <p className="alert alert-success d-none">You're in!</p>
-                    <form id="signUpForm" className="form">
+                    <form onSubmit={onButtonClickHandler} id="signUpForm" className="form">
                     <div className="form-group row">
                         <label htmlFor="companyInput" className="col-lg-1">Company</label>
                         <div className="col-lg-11">
-                        <select id="companyInput" name="Company" value={form["Company"]} onChange={handleChange} className="form-control" required>
+                        <select id="companyInput" name="Company" value={form["Company"]} onChange={handleChange} 
+                            className="form-control" required>
                         {companyOptions.map((option) => (
                                 <option key={option.value} value={option.value}>{option.label}</option>
                             ))}
@@ -154,7 +158,7 @@ function FormPage(props){
                         <div className="invalid-feedback">Please provide a date</div>
                         </div>
                     </div> */}
-                    <button onSubmit={onButtonClickHandler} type="submit" id="btnSubmit" className="btn btn-primary">Submit!</button>
+                    <button type="submit" id="btnSubmit" className="btn btn-primary">Submit!</button>
                     </form>
                 </div>
             </main>
