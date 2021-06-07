@@ -37,7 +37,7 @@ const ethnicityOptions = [
     {label: "White", value: "White"}
 ]
 const genderOptions = [
-    {label: "Select Ethnicity", value: ""},
+    {label: "Select Gender", value: ""},
     {label: "Female", value: "Female"},
     {label: "Gender Fluid", value: "Gender Fluid"},
     {label: "Male", value: "Male"},
@@ -46,7 +46,7 @@ const genderOptions = [
     {label: "Non-binary", value: "Non-Binary"}
 ]
 const orientationOptions = [
-    {label: "Select Ethnicity", value: ""},
+    {label: "Select Sexual Orientation", value: ""},
     {label: "Asexual", value: "Asexual"},
     {label: "Bisexual", value: "Bisexual"},
     {label: "Heterosexual", value: "Heterosexual"},
