@@ -68,20 +68,15 @@ function Chart(props) {
   // const [listenerAdded, setListenerAdded] = React.useState(false);
 
   useEffect(() => {
-    //
-    let isMounted = true;
     // Resize Observer from https://thewebdev.info/2021/02/21/how-to-watch-the-javascript-window-resize-event/#:~:text=How%20to%20Watch%20the%20JavaScript%20Window%20Resize%20Event%3F,Handler.%20...%203%20ResizeObserver.%20...%204%20Conclusion.%20
     const ro = new ResizeObserver(entries => {
       for (const entry of entries) {
         const htmlWidth = entry.contentRect.width;
-        console.log('isMounted:', isMounted)
-        if (isMounted) {
-          setWidth(htmlWidth * (htmlWidth < 992 ? 0.9 : 0.675));
-        }
+        setWidth(htmlWidth * (htmlWidth < 992 ? 0.9 : 0.675));
       }
     });
     ro.observe(document.querySelector('html'));
-    return () => {isMounted = false};
+    return () => {ro.disconnect()};
   }, []);
 
   // Build up the string identifying the demographic the data has been filtered down to
