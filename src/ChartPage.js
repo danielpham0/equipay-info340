@@ -29,6 +29,7 @@ function ChartPage(props) {
     {[role]: "/chart/" + company + "/" + urlParams.role}];
   // Get the data table for the current company
   const dataArray = [];
+  // TODO: handle invalid companies with error message
     Object.keys(props.data[company]).forEach((key) => {
       dataArray.push(props.data[company][key]);
     });
@@ -39,7 +40,7 @@ function ChartPage(props) {
       <Nav links={navLinks} />
       <h2 className="pt-4 px-4">Compare against the baseline</h2>
       <CompanyHeader company={urlParams.company} description={role} />
-      <Container fluid>
+      <Container id='chartContainer' fluid>
         <Row>
           <Col lg={3}>
             <ChartForm
