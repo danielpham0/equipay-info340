@@ -15,6 +15,9 @@ props = {
 ```
  */
 function ChartPage(props) {
+  // This state is used in chart form and chart
+  const [chartNeedsUpdate, setUpdate] = React.useState(false);
+
   const urlParams = useParams();
   // capitalizing first letter of each using method here:
   // https://www.freecodecamp.org/news/how-to-capitalize-words-in-javascript/
@@ -22,19 +25,28 @@ function ChartPage(props) {
   role = role.split(' ').map((str => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   })).join(' ');
+
   let company = urlParams.company;
   let capitalizedCompany = company.charAt(0).toUpperCase() + company.slice(1);
-  let navLinks = [{Companies: "/"},
-    {[capitalizedCompany]: "/roles/" + company},
-    {[role]: "/chart/" + company + "/" + urlParams.role}];
-  // Get the data table for the current company
+
   const dataArray = [];
-  // TODO: handle invalid companies with error message
+  const navLinks = [{Companies: "/"}];
+  if (props.data[company]) {
+    navLinks.push({[capitalizedCompany]: "/roles/" + company});
+    navLinks.push({[role]: "/chart/" + company + "/" + urlParams.role});
+    // Get the data table for the current company
     Object.keys(props.data[company]).forEach((key) => {
       dataArray.push(props.data[company][key]);
     });
+  } else {
+    return (
+      <>
+        <Nav links={navLinks} />
+        <p className='text-center mt-3'>An invalid company name was provided</p>
+      </>
+    )
+  }
 
-  const [chartNeedsUpdate, setUpdate] = React.useState(false);
   return (
     <>
       <Nav links={navLinks} />

@@ -103,9 +103,12 @@ export function FormButton(props){
 function WrapSpinner() {
   useEffect(() => {document.querySelector('main').classList.add('pt-2')});
   return (
-    <Spinner className="mx-auto d-block" animation="border" role="status">
-      <span className="sr-only">Loading...</span>
-    </Spinner>
+    <>
+      <h3 className='text-center'>Fetching data</h3>
+      <Spinner className="mx-auto d-block" animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+    </>
   )
 }
 
