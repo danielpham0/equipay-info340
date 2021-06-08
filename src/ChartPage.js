@@ -1,3 +1,6 @@
+/*
+ * This module handles the display of the chart and its form, encapsulating state shared between these elements.
+ */
 import React from 'react';
 import {useParams} from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
