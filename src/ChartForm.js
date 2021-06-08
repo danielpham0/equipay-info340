@@ -78,10 +78,10 @@ props = {
 function FormSelections(props) {
   let label = props.label;
   React.useEffect(() => {
-    // After component is generated, set its value to the current search value
+    // After form selection component is generated, set its displayed value to the current search value
     let search = queryString.parse(window.location.search);
     document.getElementById(label).value = search[label] || 'All';
-  }, []);
+  });
   return (
     <Form.Group controlId={label}>
       <Form.Label>{label}</Form.Label>

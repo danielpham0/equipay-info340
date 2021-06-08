@@ -3,9 +3,10 @@ import CompaniesPage from './Companies';
 import LandingPage from './Landing';
 import ChartPage from './ChartPage';
 import FormPage from './Form';
+import LoginPage from './Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useState, useEffect} from 'react';
-import Spinner from 'react-bootstrap/Spinner'
+import Spinner from 'react-bootstrap/Spinner';
 import './App.css';
 import { Route, Switch, Link, Redirect, NavLink} from 'react-router-dom';
 import amazon_logo from "./imgs/amazon_logo.png";
@@ -24,6 +25,7 @@ function App(props) {
   // State hooks, one for displaying a loading circle and one for the app data
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(0);
+  const [user, setUser] = useState({});
   // Takes a snapshot of the firebase database to pass into other components as a prop
   useEffect(() => {
     const ref = firebase.database().ref('companies');
@@ -43,8 +45,9 @@ function App(props) {
       </header>
       <main>
         <Switch>
+          <Route exact path='/'> <LoginPage /> </Route>
           <Route path='/landing'> <LandingPage /> </Route>
-          <Route exact path='/'> <CompaniesPage /> </Route>
+          <Route path='/companies'> <CompaniesPage /> </Route>
           {/* When isLoading show spinner instead of rendering data-reliant components */}
           <Route path='/roles/:company'>
             {isLoading ? <WrapSpinner /> : <RolePage data={data} />}
