@@ -2,6 +2,7 @@ import RolePage from './Roles';
 import CompaniesPage from './Companies';
 import LandingPage from './Landing';
 import ChartPage from './ChartPage';
+import UserPage from './User';
 import FormPage from './Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useState, useEffect} from 'react';
@@ -53,6 +54,7 @@ function App(props) {
             {isLoading ? <WrapSpinner /> : <ChartPage data={data} />}
           </Route>
           <Route path='/form'> <FormPage /> </Route>
+          <Route path='/user'> <UserPage /> </Route>
           <Route path='/'>
             <Redirect to='/' />
           </Route>
