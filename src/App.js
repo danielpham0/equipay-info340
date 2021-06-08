@@ -2,6 +2,7 @@ import RolePage from './Roles';
 import CompaniesPage from './Companies';
 import LandingPage from './Landing';
 import ChartPage from './ChartPage';
+import UserPage from './User';
 import FormPage from './Form';
 import LoginPage from './Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -56,6 +57,7 @@ function App(props) {
             {isLoading ? <WrapSpinner /> : <ChartPage data={data} />}
           </Route>
           <Route path='/form'> <FormPage /> </Route>
+          <Route path='/user'> <UserPage /> </Route>
           <Route path='/'>
             <Redirect to='/' />
           </Route>
