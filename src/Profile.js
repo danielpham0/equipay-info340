@@ -8,6 +8,7 @@ function ProfilePage(props) {
     return <Redirect to="/login/profile" />
   }
   let userInfo = {};
+  console.log(userInfo);
   let userCompany = '';
   for (let company in props.data){
     if(props.data[company][props.user.uid]) {
@@ -19,7 +20,7 @@ function ProfilePage(props) {
     <h3> Submit your first entry: </h3>
     <FormButton />
   </div>);
-  if (userInfo !== {}) {
+  if (Object.keys(userInfo).length !== 0) {
     content = (<div>
         <h3> Current Information: </h3>
         <p> Company -  {userCompany}</p>
