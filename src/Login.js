@@ -9,7 +9,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 
-
+// configuration for firebase authentification ui
 const uiConfig = {
   signInOptions: [
     {
@@ -33,10 +33,12 @@ const uiConfig = {
 function LoginPage(props) {
   const urlParams = useParams();
   let history = useHistory();
+  // sets user state based on firebase user
   useEffect(() =>{
     firebase.auth().onAuthStateChanged((firebaseUser) => {
       if(firebaseUser) {
         props.setUser(firebaseUser);
+        // directs users to the correct url after user has been logged in
         history.push('/' + urlParams.success);
       } else {
         props.setUser(null);
