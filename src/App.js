@@ -2,7 +2,7 @@ import RolePage from './Roles';
 import CompaniesPage from './Companies';
 import LandingPage from './Landing';
 import ChartPage from './ChartPage';
-import UserPage from './User';
+import ProfilePage from './Profile';
 import FormPage from './Form';
 import LoginPage from './Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -45,8 +45,8 @@ function App(props) {
         <div className='head'>
           <h1><Link to='/landing'>EquiPay</Link></h1>
           <div>
-            <div><Link to='/login/user'>{(!user) ? 'Sign In!' : user.displayName}</Link></div> 
-            <div onClick={handleSignOut} role="button"> {(!user) ? ' ' : 'Sign Out'}</div>
+            <div><Link to='/login/profile'>{(!user) ? 'Sign In!' : user.displayName}</Link></div> 
+            <div onClick={handleSignOut} role="button" className='signout'> {(!user) ? ' ' : 'Sign Out'}</div>
           </div>
         </div>
         <div className="creators">
@@ -66,7 +66,7 @@ function App(props) {
             {isLoading ? <WrapSpinner /> : <ChartPage data={data} />}
           </Route>
           <Route path='/form'> {isLoading ? <WrapSpinner /> : <FormPage data={data} user={user}/>}</Route>
-          <Route path='/user'> <UserPage user={user}/> </Route>
+          <Route path='/profile'> {isLoading ? <WrapSpinner /> : <ProfilePage data={data} user={user} />} </Route>
           <Route path='/'>
             <Redirect to='/' />
           </Route>
