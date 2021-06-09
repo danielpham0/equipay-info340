@@ -46,7 +46,7 @@ function App(props) {
           <h1><Link to='/landing'>EquiPay</Link></h1>
           <div>
             <div><Link to='/login/user'>{(!user) ? 'Sign In!' : user.displayName}</Link></div> 
-            <div onClick={handleSignOut} role="button"> {(!user) ? ' ' : 'Sign Out'}</div>
+            <div onClick={handleSignOut} role="button" className='signout'> {(!user) ? ' ' : 'Sign Out'}</div>
           </div>
         </div>
         <div className="creators">

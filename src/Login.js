@@ -7,6 +7,7 @@ import {useEffect} from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
 
 const uiConfig = {
   signInOptions: [
@@ -48,11 +49,13 @@ function LoginPage(props) {
           <li><Link to="/Companies"> Back </Link></li>
         </ul>
       </nav>
-      <h1>Sign Up</h1>
-      <StyledFirebaseAuth
-        uiConfig={uiConfig}
-        firebaseAuth={firebase.auth()}
-      />
+      <Container>
+        <h1>Sign Up</h1>
+        <StyledFirebaseAuth
+          uiConfig={uiConfig}
+          firebaseAuth={firebase.auth()}
+        />
+      </Container>
     </>
   )
 }
