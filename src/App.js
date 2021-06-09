@@ -2,7 +2,7 @@ import RolePage from './Roles';
 import CompaniesPage from './Companies';
 import LandingPage from './Landing';
 import ChartPage from './ChartPage';
-import UserPage from './User';
+import ProfilePage from './Profile';
 import FormPage from './Form';
 import LoginPage from './Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,7 +26,7 @@ function App(props) {
   // State hooks, one for displaying a loading circle and one for the app data
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(0);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   // Takes a snapshot of the firebase database to pass into other components as a prop
   useEffect(() => {
     const ref = firebase.database().ref('companies');
@@ -36,19 +36,28 @@ function App(props) {
       document.querySelector('main').classList.remove('pt-2');
     });
   }, []);
+  const handleSignOut = () => {
+    firebase.auth().signOut();
+  }
   return (
     <div className="App">
       <header>
-        <h1><Link to='/landing'>EquiPay</Link></h1>
+        <div className='head'>
+          <h1><Link to='/landing'>EquiPay</Link></h1>
+          <div>
+            <div><Link to='/login/profile'>{(!user) ? 'Sign In!' : user.displayName}</Link></div> 
+            <div onClick={handleSignOut} role="button" className='signout'> {(!user) ? ' ' : 'Sign Out'}</div>
+          </div>
+        </div>
         <div className="creators">
           <p>Daniel Pham, Shane Fretwel, Ryan Carroll</p>
         </div>
       </header>
       <main>
         <Switch>
-          <Route exact path='/'> <LoginPage /> </Route>
+          <Route path='/login/:success'> <LoginPage user={user} setUser={setUser}/> </Route>
           <Route path='/landing'> <LandingPage /> </Route>
-          <Route path='/companies'> <CompaniesPage /> </Route>
+          <Route exact path='/'> <CompaniesPage /> </Route>
           {/* When isLoading show spinner instead of rendering data-reliant components */}
           <Route path='/roles/:company'>
             {isLoading ? <WrapSpinner /> : <RolePage data={data} />}
@@ -56,8 +65,8 @@ function App(props) {
           <Route path='/chart/:company/:role'>
             {isLoading ? <WrapSpinner /> : <ChartPage data={data} />}
           </Route>
-          <Route path='/form'> <FormPage /> </Route>
-          <Route path='/user'> <UserPage /> </Route>
+          <Route path='/form'> {isLoading ? <WrapSpinner /> : <FormPage data={data} user={user}/>}</Route>
+          <Route path='/profile'> {isLoading ? <WrapSpinner /> : <ProfilePage data={data} user={user} />} </Route>
           <Route path='/'>
             <Redirect to='/' />
           </Route>
@@ -101,7 +110,7 @@ export function CompanyHeader(props) {
 // Component for user input form.
 export function FormButton(props){
   return (<div className="userDataDiv">
-    <button className="userDataBtn"><Link to="/form" className="userDataLink"> Self Report Data </Link></button>
+    <button className="userDataBtn"><Link to="/login/form" className="userDataLink"> Self Report Data </Link></button>
   </div>);
 }
 

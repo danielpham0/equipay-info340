@@ -1,5 +1,5 @@
-import {React, useState} from 'react';
-import {NavLink} from 'react-router-dom';
+import {React} from 'react';
+import {Redirect} from 'react-router-dom';
 import firebase from 'firebase/app';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -17,14 +17,18 @@ import {Row} from 'react-bootstrap';
 function FormPage(props) {
   function onSubmit(event) {
     event.preventDefault();
-    const ref = firebase.database().ref('companies');
+    // const ref = firebase.database().ref('companies'); old
 
     let form = getForm();
     let entry = {...form};
     delete entry.Company
 
     entry["Base Salary"] = parseInt(entry["Base Salary"]);
-    ref.child(form.Company.toLowerCase()).push(entry);
+    for (let company in props.data)
+        firebase.database().ref('companies').child(company).child(props.user.uid).remove();
+    const ref = firebase.database().ref('companies').child(form.Company.toLowerCase());
+    ref.child(props.user.uid).set(entry);
+    // ref.child(form.Company.toLowerCase()).push(entry); old
     setForm(FORM.DEFAULT);
 
     // TODO: change?
@@ -83,6 +87,9 @@ function FormSelections(props) {
       );
     }
   );
+  if (!props.user){
+      return <Redirect to="/login/form" /> //history.push('/login/form');
+  }
   return (
     <Form.Group controlId={label} className={props.className}>
       <Form.Label>{label}</Form.Label>
