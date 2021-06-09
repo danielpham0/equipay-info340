@@ -6,6 +6,7 @@ import firebase from 'firebase';
 import {useEffect} from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import { Link } from 'react-router-dom';
 
 const uiConfig = {
   signInOptions: [
@@ -42,6 +43,11 @@ function LoginPage(props) {
   })
   return (
     <>
+      <nav>
+        <ul>
+          <li><Link to="/Companies"> Back </Link></li>
+        </ul>
+      </nav>
       <h1>Sign Up</h1>
       <StyledFirebaseAuth
         uiConfig={uiConfig}
