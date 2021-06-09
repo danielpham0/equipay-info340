@@ -57,9 +57,9 @@ function ChartForm(props) {
       onSubmit={changeChart}
       className={props.className}
     >
-      <FormSelections options={options} label="Gender" />
-      <FormSelections options={options} label="Ethnicity" />
-      <FormSelections options={options} label="Sexual Orientation" />
+      <ChartFormSelections options={options} label="Gender" />
+      <ChartFormSelections options={options} label="Ethnicity" />
+      <ChartFormSelections options={options} label="Sexual Orientation" />
       <Button variant="primary" type="submit">
         Change Chart
       </Button>
@@ -75,7 +75,7 @@ props = {
 }
 ```
  */
-function FormSelections(props) {
+function ChartFormSelections(props) {
   let label = props.label;
   React.useEffect(() => {
     // After form selection component is generated, set its displayed value to the current search value
