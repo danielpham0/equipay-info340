@@ -47,6 +47,8 @@ function ProfilePage(props) {
         <p> Ethnicity -  {userInfo['Ethnicity']}</p>
         <p> Gender -  {userInfo['Gender']}</p>
         <p> Sexual Orientation -  {userInfo['Sexual Orientation']}</p>
+        <h3> Update Your Information: </h3>
+        <FormButton />
       </div>);
   }
   return (
