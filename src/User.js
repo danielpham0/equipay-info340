@@ -1,14 +1,18 @@
-import React from 'react';
-import {useParams} from 'react-router-dom';
+import {React} from 'react';
 import {Nav} from './App';
+import { useHistory } from 'react-router-dom';
 
 function UserPage(props) {
-    return (
-      <div>
-        <Nav links={[{'Home': '/'}]}/>
-        <p> Hello! </p>
-      </div>
-    );
+  let history = useHistory();
+  if (!props.user){
+    history.push('/login/user');
   }
-  
-  export default UserPage;
+  return (
+    <div>
+      <Nav links={[{'Home': '/'}]}/>
+      <p> Hello {props.user ? props.user.displayName : '!'} </p>
+    </div>
+  );
+}
+
+export default UserPage;

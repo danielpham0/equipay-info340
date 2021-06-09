@@ -5,6 +5,7 @@ import {BrowserRouter} from 'react-router-dom';
 import GOOGLE_EMPLOYEES from './google.json';
 import firebase from 'firebase/app';
 import 'firebase/database';
+import 'firebase/auth'
 
   // Your web app's Firebase configuration
 var firebaseConfig = {

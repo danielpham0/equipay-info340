@@ -47,7 +47,10 @@ header h1 {
   flex-wrap: wrap;
   padding: 10px;
 }
-
+.head {
+  display: flex;
+  justify-content: space-between;
+}
   /******************************** Nav Bar ********************************/
 nav {
   display: inline-block;
