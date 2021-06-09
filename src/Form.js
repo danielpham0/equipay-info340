@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 import firebase from 'firebase/app';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import FORM_OPTIONS from './form-options.json';
+import FORM from './form-options.json';
 
 // Java script page that develops the html for the form page
 // This page also add interactivity as the user has to input different
@@ -14,7 +14,7 @@ import FORM_OPTIONS from './form-options.json';
 //to confirm they actually work at a certain company
 
 function FormPage(props) {
-  const [form, setForm] = useState(FORM_OPTIONS.default);
+  const [form, setForm] = useState(FORM.default);
   function onButtonClickHandler(event) {
     event.preventDefault();
     const ref = firebase.database().ref('companies');
@@ -22,7 +22,7 @@ function FormPage(props) {
     delete entry.Company
     entry["Base Salary"] = parseInt(entry["Base Salary"]);
     ref.child(form.Company.toLowerCase()).push(entry);
-    setForm(FORM_OPTIONS.default);
+    setForm(FORM.default);
     console.log(entry);
     window.alert("Your submission has been successful!");
   }
@@ -137,12 +137,18 @@ props = {
  */
 function FormSelections(props) {
   let label = props.label;
-  let options = FORM_OPTIONS[label].map(())
+  let options = FORM.options[label].map(
+    opt => {
+      <option key={opt.label} value={opt.value}>
+        {opt.label}
+      </option>
+    }
+  );
   return (
     <Form.Group controlId={label}>
       <Form.Label>{label}</Form.Label>
       <Form.Control as='select'>
-        {}
+        {options}
       </Form.Control>
     </Form.Group>
   );
