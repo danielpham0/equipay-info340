@@ -15,10 +15,10 @@ let logos = {
 function CompanyCard(props){
     let url = '/roles/';
     let logo = logos;
-    let companies = props.company;
+    let company = props.company;
     return (
         <div>
-        {companies.map((company) =>
+        {/*{companies.map((company) => */}
         <div className="c_card">
             <Link to={url + company.toLowerCase()}> 
                 <h3><span className="logo" style={{backgroundImage: `url(${logo[company]})`}} aria-hidden="true"></span>{company}</h3>
@@ -27,7 +27,7 @@ function CompanyCard(props){
                 </div>
             </Link>
             </div>
-        )}
+        {/* )} */}
         </div>
     )
     
@@ -41,7 +41,10 @@ function CompaniesPage(props){
         <div>
             <Nav links={[{'About Equipay': '/Landing'}]}/>
             <div className="card_frame">
-                <CompanyCard company={Object.keys(logos)} />
+                <CompanyCard company="Google" />
+                <CompanyCard company="Amazon" />
+                <CompanyCard company="Microsoft" />
+                {/* <CompanyCard company={Object.keys(logos)} /> */}
             </div>
             <FormButton /> 
         </div>
