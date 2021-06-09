@@ -1,5 +1,5 @@
 {
-  "options": {
+  "OPTIONS": {
 
     "Company": [
       {"label": "Select Company", "value": ""},
@@ -9,7 +9,7 @@
       {"label": "Netflix", "value": "netflix"}
     ],
 
-    "Role": [
+    "Job Title": [
       {"label": "Select Role", "value": ""},
       {"label": "Data Scientist", "value": "DATA SCIENTIST"},
       {"label": "Hardware Engineer", "value": "HARDWARE ENGINEER"},
@@ -38,7 +38,7 @@
       {"label": "Non-binary", "value": "Non-Binary"}
     ],
 
-    "Orientation": [
+    "Sexual Orientation": [
       {"label": "Select Sexual Orientation", "value": ""},
       {"label": "Asexual", "value": "Asexual"},
       {"label": "Bisexual", "value": "Bisexual"},
@@ -50,7 +50,7 @@
     ]
   },
 
-  "default": {
+  "DEFAULT": {
     "Company": "",
     "Job Title": "",
     "Base Salary": "",
