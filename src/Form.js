@@ -1,5 +1,5 @@
 import {React} from 'react';
-import {Redirect} from 'react-router-dom';
+import {Redirect, NavLink} from 'react-router-dom';
 import firebase from 'firebase/app';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -49,14 +49,20 @@ function FormPage(props) {
   );
   // Put the salary input below the role selection
   selectionsArray.splice(2, 0, salaryInput);
+  if (!props.user){
+    return <Redirect to="/login/form" />
+  }
   return (
-    <Form id="input-form" className="p-3" onSubmit={onSubmit} >
-      <h2>Input Your Own Data Below!</h2>
-      <Row>{selectionsArray}</Row>
-      <Button variant="primary" type="submit">
-        Submit!
-      </Button>
-    </Form>
+    <div>
+      <nav><ul><li><NavLink to="/"> Home </NavLink></li></ul></nav>
+      <Form id="input-form" className="p-3" onSubmit={onSubmit} >
+        <h2>Input Your Own Data Below!</h2>
+        <Row>{selectionsArray}</Row>
+        <Button variant="primary" type="submit">
+          Submit!
+        </Button>
+      </Form>
+    </div>
   )
 }
 
@@ -79,9 +85,6 @@ function FormSelections(props) {
       );
     }
   );
-  if (!props.user){
-      return <Redirect to="/login/form" /> //history.push('/login/form');
-  }
   return (
     <Form.Group controlId={label} className={props.className}>
       <Form.Label>{label}</Form.Label>
