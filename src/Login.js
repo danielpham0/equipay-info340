@@ -8,6 +8,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Link } from 'react-router-dom';
 
+
 const uiConfig = {
   signInOptions: [
     {
@@ -41,11 +42,18 @@ function LoginPage(props) {
       }
     })
   })
+
+  const navHist = useHistory();
+
+  const goBack = () =>  {
+    navHist.goBack();
+  };
+
   return (
     <>
       <nav>
         <ul>
-          <li><Link to="/Companies"> Back </Link></li>
+          <li><Link onClick={goBack}> Back </Link></li>
         </ul>
       </nav>
       <h1>Sign Up</h1>
