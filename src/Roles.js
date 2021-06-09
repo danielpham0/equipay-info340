@@ -17,7 +17,7 @@ function RolePage(props) {
   const urlParams = useParams();
   let company = urlParams.company;
   const dataArray = [];
-  const navLinks = [{Companies: "/"}];
+  const navLinks = [{Companies: "/companies"}];
   if (props.data[company]) {
     navLinks.push({[company.charAt(0).toUpperCase() + company.slice(1)]: "/roles/" + company});
     // Turns list of objects into an array, allowing our data to be used more easily
