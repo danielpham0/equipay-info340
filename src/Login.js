@@ -3,6 +3,8 @@
  */
 import firebase from 'firebase';
 // import 'firebase.auth';// from '@react-firebase/auth';
+import {useEffect} from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 const uiConfig = {
@@ -18,14 +20,26 @@ const uiConfig = {
   ],
   credentialHelper: 'none',
   signInFlow: 'popup',
-  signInSuccessUrl: '/companies',
-  // callbacks: {
-  //   // Avoid redirects after sign-in
-  //   signInSuccessWithAuthResult: () => false
-  // }
+  signInSuccessUrl: '/',
+  callbacks: {
+    // Avoid redirects after sign-in
+    signInSuccessWithAuthResult: () => false
+  }
 };
 
-function LoginPage() {
+function LoginPage(props) {
+  const urlParams = useParams();
+  let history = useHistory();
+  useEffect(() =>{
+    firebase.auth().onAuthStateChanged((firebaseUser) => {
+      if(firebaseUser) {
+        props.setUser(firebaseUser);
+        history.push('/' + urlParams.success);
+      } else {
+        props.setUser(null);
+      }
+    })
+  })
   return (
     <>
       <h1>Sign Up</h1>

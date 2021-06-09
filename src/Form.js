@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import firebase from 'firebase/app';
 
 // Java script page that develops the html for the form page
@@ -57,6 +57,10 @@ const orientationOptions = [
 ]
 
 function FormPage(props){
+    let history = useHistory();
+    if (!props.user){
+      history.push('/login/form');
+    }
     const [form, setForm] = useState({"Company": "", "Job Title": "",
         "Base Salary": "", "Ethnicity": "", "Gender": "", 
         "Sexual Orientation": ""});
