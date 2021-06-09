@@ -65,7 +65,7 @@ function App(props) {
           <Route path='/chart/:company/:role'>
             {isLoading ? <WrapSpinner /> : <ChartPage data={data} />}
           </Route>
-          <Route path='/form'> <FormPage user={user}/> </Route>
+          <Route path='/form'> {isLoading ? <WrapSpinner /> : <FormPage data={data} user={user}/>}</Route>
           <Route path='/user'> <UserPage user={user}/> </Route>
           <Route path='/'>
             <Redirect to='/' />

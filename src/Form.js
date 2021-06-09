@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import firebase from 'firebase/app';
 
 // Java script page that develops the html for the form page
@@ -57,24 +57,21 @@ const orientationOptions = [
 ]
 
 function FormPage(props){
-    let history = useHistory();
-    if (!props.user){
-      history.push('/login/form');
-    }
     const [form, setForm] = useState({"Company": "", "Job Title": "",
         "Base Salary": "", "Ethnicity": "", "Gender": "", 
         "Sexual Orientation": ""});
     function onButtonClickHandler(event){
         event.preventDefault();
-        const ref = firebase.database().ref('companies');
+        for (let company in props.data)
+            firebase.database().ref('companies').child(company).child(props.user.uid).remove();
+        const ref = firebase.database().ref('companies').child(form.Company.toLowerCase());
         let entry = {...form};
         delete entry.Company
         entry["Base Salary"] = parseInt(entry["Base Salary"]);
-        ref.child(form.Company.toLowerCase()).push(entry);
+        ref.child(props.user.uid).set(entry);
         setForm({"Company": "", "Job Title": "",
         "Base Salary": "", "Ethnicity": "", "Gender": "", 
         "Sexual Orientation": ""});
-        console.log(entry);
         window.alert("Your submission has been successful!");
     }
     const handleChange = (event) => {
@@ -82,6 +79,9 @@ function FormPage(props){
         setForm({...form,
                 [event.target.name]: value
             })
+    }
+    if (!props.user){
+        return <Redirect to="/login/form" /> //history.push('/login/form');
     }
     return (
         <div>
@@ -155,13 +155,6 @@ function FormPage(props){
                         </select>
                         </div>
                     </div>
-                    {/* <div className="form-group row">
-                        <label htmlFor="dateInput" className="col-lg-1">Date</label>
-                        <div className="col-lg-11">
-                        <input type="date" id="dateInput" className="form-control" required></input>
-                        <div className="invalid-feedback">Please provide a date</div>
-                        </div>
-                    </div> */}
                     <button type="submit" id="btnSubmit" className="btn btn-primary">Submit!</button>
                     </form>
                 </div>

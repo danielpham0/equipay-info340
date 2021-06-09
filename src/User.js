@@ -1,11 +1,10 @@
 import {React} from 'react';
 import {Nav} from './App';
-import { useHistory } from 'react-router-dom';
+import { Redirect} from 'react-router-dom';
 
 function UserPage(props) {
-  let history = useHistory();
   if (!props.user){
-    history.push('/login/user');
+    return <Redirect to="/login/user" />
   }
   return (
     <div>
