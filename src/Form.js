@@ -7,17 +7,16 @@ import FORM from './form-options.json';
 import {Row} from 'react-bootstrap';
 
 // Java script page that develops the html for the form page
-// This page also add interactivity as the user has to input different
+// This page also adds interactivity as the user has to input different
 // data into the form. The form uses firebase to track what data is being
-// entered into the form. This data is then reflected into our graphs
+// entered into the form. This data is then reflected in our graphs
 
-//One concern we have is people inputing data that is false because its hard
-//to confirm they actually work at a certain company
+// One concern we have is people inputing data that is false because its hard
+// to confirm they actually work at a certain company
 
 function FormPage(props) {
   function onSubmit(event) {
     event.preventDefault();
-    // const ref = firebase.database().ref('companies'); old
 
     let form = getForm();
     let entry = {...form};
@@ -28,7 +27,6 @@ function FormPage(props) {
         firebase.database().ref('companies').child(company).child(props.user.uid).remove();
     const ref = firebase.database().ref('companies').child(form.Company.toLowerCase());
     ref.child(props.user.uid).set(entry);
-    // ref.child(form.Company.toLowerCase()).push(entry); old
     setForm(FORM.DEFAULT);
 
     // TODO: change?
@@ -54,13 +52,7 @@ function FormPage(props) {
   return (
     <Form id="input-form" className="p-3" onSubmit={onSubmit} >
       <h2>Input Your Own Data Below!</h2>
-      <Row>
-        {/* <Form.Group controlId="Salary" className={"col-12"} label="Salary">
-          <Form.Label>Salary</Form.Label>
-          <Form.Control as='input' />
-        </Form.Group> */}
-        {selectionsArray}
-      </Row>
+      <Row>{selectionsArray}</Row>
       <Button variant="primary" type="submit">
         Submit!
       </Button>
