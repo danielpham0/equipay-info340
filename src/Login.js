@@ -56,7 +56,7 @@ function LoginPage(props) {
     <>
       <nav>
         <ul>
-          <li><Link onClick={goBack}> Back </Link></li>
+          <li className="back" onClick={goBack} type="button"> Back </li>
         </ul>
       </nav>
       <Container>
