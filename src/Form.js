@@ -43,7 +43,7 @@ function FormPage(props) {
   );
   let salaryInput = (
     <div className="col-12 form-group" key="Base Salary">
-      <label for="Base Salary">Salary</label>
+      <label htmlFor="Base Salary">Salary</label>
       <input type="number" id="Base Salary" className="form-control" required></input>
       <div className="invalid-feedback">Please provide a Salary</div>
     </div>
