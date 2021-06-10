@@ -6,7 +6,6 @@ import firebase from 'firebase';
 import {useEffect} from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 
 // configuration for firebase authentification ui
@@ -34,7 +33,7 @@ function LoginPage(props) {
   const urlParams = useParams();
   let history = useHistory();
   // sets user state based on firebase user
-  useEffect(() =>{
+  useEffect(() => {
     firebase.auth().onAuthStateChanged((firebaseUser) => {
       if(firebaseUser) {
         props.setUser(firebaseUser);
@@ -44,7 +43,7 @@ function LoginPage(props) {
         props.setUser(null);
       }
     })
-  })
+  });
 
   const navHist = useHistory();
 
