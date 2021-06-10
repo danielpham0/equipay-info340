@@ -44,7 +44,9 @@ function Chart(props) {
   let filteredSalaries = lodash.map(filteredTable, 'Base Salary');
 
   // If there is a role selected, the baseline is only data from that role
-  let baseline = filters['Job Title'] ? lodash.filter(props.data, filters) : props.data;
+  let baseline = filters['Job Title'] ?
+    lodash.filter(props.data, {"Job Title": filters['Job Title']})
+    : props.data;
   let baselineSalaries = lodash.map(baseline, 'Base Salary');
 
   let datasets = [
