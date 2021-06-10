@@ -20,7 +20,6 @@ function ProfilePage(props) {
     return <Redirect to="/login/profile" />
   }
   let userInfo = {};
-  console.log(userInfo);
   let userCompany = '';
   // Looks for user's information in the database
   for (let company in props.data){
@@ -34,7 +33,6 @@ function ProfilePage(props) {
     <h3> Submit your first entry: </h3>
     <FormButton />
   </div>);
-  console.log("userInfo", userInfo);
   if (Object.keys(userInfo).length !== 0) {
     let role = userInfo['Job Title'].split(' ').map((str => {
       return str.charAt(0) + str.slice(1).toLowerCase();

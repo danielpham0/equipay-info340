@@ -32,8 +32,6 @@ const uiConfig = {
 function LoginPage(props) {
   const urlParams = useParams();
   useEffect(() => {
-    console.log("Setting loginSuccess");
-    console.log("urlParams.success", urlParams.success)
     props.setLoginSuccess(urlParams.success);
   }, [urlParams.success]);
 

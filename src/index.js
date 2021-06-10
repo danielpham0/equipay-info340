@@ -19,7 +19,6 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// console.log(GOOGLE_EMPLOYEES[0], GOOGLE_EMPLOYEES[1], GOOGLE_EMPLOYEES[2]);
 ReactDOM.render(
   <BrowserRouter>
     <App data={GOOGLE_EMPLOYEES}/>

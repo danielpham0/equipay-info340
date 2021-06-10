@@ -45,13 +45,7 @@ function App(props) {
 
   useEffect(() => {
     // Handle onAuthStateChanged listener
-    let time = 0;
     firebase.auth().onAuthStateChanged((firebaseUser) => {
-      // console.log("unsubscribe:", unsubscribe);
-      console.log("user:", firebaseUser);
-      console.log("time:", time);
-      console.log("loginSuccess:", loginSuccess);
-      time++;
       if (firebaseUser) {
         setUser(firebaseUser);
         // directs users to the correct url after user has been logged in
@@ -63,7 +57,6 @@ function App(props) {
   }, [loginSuccess]);
 
   const handleSignOut = () => {
-    console.log("Signing out");
     firebase.auth().signOut();
   }
   return (
