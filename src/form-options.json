@@ -1,0 +1,61 @@
+{
+  "OPTIONS": {
+
+    "Company": [
+      {"label": "Select Company", "value": ""},
+      {"label": "Google", "value": "google"},
+      {"label": "Amazon", "value": "amazon"},
+      {"label": "Microsoft", "value": "microsoft"},
+      {"label": "Netflix", "value": "netflix"}
+    ],
+
+    "Job Title": [
+      {"label": "Select Role", "value": ""},
+      {"label": "Data Scientist", "value": "DATA SCIENTIST"},
+      {"label": "Hardware Engineer", "value": "HARDWARE ENGINEER"},
+      {"label": "Product Manager", "value": "PRODUCT MANAGER"},
+      {"label": "Program Manager", "value": "PROGRAM MANAGER"},
+      {"label": "Software Engineer", "value": "SOFTWARE ENGINEER"}
+    ],
+
+    "Ethnicity": [
+      {"label": "Select Ethnicity", "value": ""},
+      {"label": "American Indian", "value": "American Indian"},
+      {"label": "Asian", "value": "Asian"},
+      {"label": "Black", "value": "Black"},
+      {"label": "Hispanic", "value": "Hispanic"},
+      {"label": "Pacific Islander", "value": "Pacific Islander"},
+      {"label": "White", "value": "White"}
+    ],
+
+    "Gender": [
+      {"label": "Select Gender", "value": ""},
+      {"label": "Female", "value": "Female"},
+      {"label": "Gender Fluid", "value": "Gender Fluid"},
+      {"label": "Male", "value": "Male"},
+      {"label": "Transgender Male", "value": "Transgender Male"},
+      {"label": "Transgender Female", "value": "Transgender Female"},
+      {"label": "Non-binary", "value": "Non-Binary"}
+    ],
+
+    "Sexual Orientation": [
+      {"label": "Select Sexual Orientation", "value": ""},
+      {"label": "Asexual", "value": "Asexual"},
+      {"label": "Bisexual", "value": "Bisexual"},
+      {"label": "Heterosexual", "value": "Heterosexual"},
+      {"label": "Homosexual", "value": "Homosexual"},
+      {"label": "Pansexual", "value": "Pansexual"},
+      {"label": "Queer", "value": "Queer"},
+      {"label": "Fluid", "value": "Fluid"}
+    ]
+  },
+
+  "DEFAULT": {
+    "Company": "",
+    "Job Title": "",
+    "Base Salary": "",
+    "Ethnicity": "",
+    "Gender": "",
+    "Sexual Orientation": ""
+  }
+}
