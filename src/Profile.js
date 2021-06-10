@@ -34,11 +34,12 @@ function ProfilePage(props) {
     <h3> Submit your first entry: </h3>
     <FormButton />
   </div>);
-  let role = userInfo['Job Title'].split(' ').map((str => {
-    return str.charAt(0) + str.slice(1).toLowerCase();
-  })).join(' ');
-  // displays user's information
+  console.log("userInfo", userInfo);
   if (Object.keys(userInfo).length !== 0) {
+    let role = userInfo['Job Title'].split(' ').map((str => {
+      return str.charAt(0) + str.slice(1).toLowerCase();
+    })).join(' ');
+    // displays user's information
     content = (<div>
         <h3> Current Information: </h3>
         <p> Company -  {userCompany.charAt(0).toUpperCase() + userCompany.slice(1)}</p>

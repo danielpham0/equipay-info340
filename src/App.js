@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {useState, useEffect} from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import './App.css';
-import { Route, Switch, Link, Redirect, NavLink} from 'react-router-dom';
+import { Route, Switch, Link, Redirect, NavLink, useHistory} from 'react-router-dom';
 import amazon_logo from "./imgs/amazon_logo.png";
 import google_logo from "./imgs/google_logo.png";
 import microsoft_logo from "./imgs/microsoft_logo.png";
@@ -27,16 +27,43 @@ function App(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(0);
   const [user, setUser] = useState(null);
+  const [loginSuccess, setLoginSuccess] = useState("");
+  // loginSuccess.url is like a state variable, but it doesn't reload the app when it updates
+  // let loginSuccess = {'url': ""};
+  let history = useHistory();
   // Takes a snapshot of the firebase database to pass into other components as a prop
   useEffect(() => {
+    // Handle loading spinner
     const ref = firebase.database().ref('companies');
-    ref.on('value', (snapshot)=>{
+    ref.on('value', (snapshot) => {
       setData(snapshot.val());
       setIsLoading(false);
+      // Remove extraneous space in between the main and the head
       document.querySelector('main').classList.remove('pt-2');
     });
   }, []);
+
+  useEffect(() => {
+    // Handle onAuthStateChanged listener
+    let time = 0;
+    firebase.auth().onAuthStateChanged((firebaseUser) => {
+      // console.log("unsubscribe:", unsubscribe);
+      console.log("user:", firebaseUser);
+      console.log("time:", time);
+      console.log("loginSuccess:", loginSuccess);
+      time++;
+      if (firebaseUser) {
+        setUser(firebaseUser);
+        // directs users to the correct url after user has been logged in
+        history.push('/' + loginSuccess);
+      } else {
+        setUser(null);
+      }
+    })
+  }, [loginSuccess]);
+
   const handleSignOut = () => {
+    console.log("Signing out");
     firebase.auth().signOut();
   }
   return (
@@ -45,7 +72,9 @@ function App(props) {
         <div className='head'>
           <h1><Link to='/landing'>EquiPay</Link></h1>
           <div>
-            <div><Link to='/login/profile'>{(!user) ? 'Sign In!' : user.displayName}</Link></div> 
+            <Link to={(!user) ? '/login/profile' : '/profile'}>
+              {(!user) ? 'Sign In!' : user.displayName}
+            </Link>
             <div onClick={handleSignOut} role="button" className='signout'> {(!user) ? ' ' : 'Sign Out'}</div>
           </div>
         </div>
@@ -55,7 +84,13 @@ function App(props) {
       </header>
       <main>
         <Switch>
-          <Route path='/login/:success'> <LoginPage user={user} setUser={setUser}/> </Route>
+          <Route path='/login/:success'>
+            <LoginPage
+              user={user}
+              setUser={setUser}
+              setLoginSuccess={setLoginSuccess}
+            />
+          </Route>
           <Route path='/landing'> <LandingPage /> </Route>
           <Route exact path='/'> <CompaniesPage /> </Route>
           {/* When isLoading show spinner instead of rendering data-reliant components */}
