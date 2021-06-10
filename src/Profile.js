@@ -5,6 +5,9 @@ import {React} from 'react';
 import {Nav, FormButton} from './App';
 import { Redirect} from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 /**
 ```
@@ -37,22 +40,38 @@ function ProfilePage(props) {
     let role = userInfo['Job Title'].split(' ').map((str => {
       return str.charAt(0) + str.slice(1).toLowerCase();
     })).join(' ');
-    content = (<div>
+    content = (<>
+      <Card className="p-3 m-3">
         <h3> Current Information: </h3>
-        <p> Company -  {userCompany.charAt(0).toUpperCase() + userCompany.slice(1)}</p>
-        <p> Job Title -  {role}</p>
-        <p> Salary -  {userInfo['Base Salary']}</p>
-        <p> Ethnicity -  {userInfo['Ethnicity']}</p>
-        <p> Gender -  {userInfo['Gender']}</p>
-        <p> Sexual Orientation -  {userInfo['Sexual Orientation']}</p>
+        <Row>
+          <Col><p> Company: </p></Col> <Col><p> {userCompany.charAt(0).toUpperCase() + userCompany.slice(1)}</p></Col>
+        </Row>
+        <Row>
+          <Col><p> Job Title: </p></Col> <Col><p> {role}</p></Col>
+        </Row>
+        <Row>
+          <Col><p> Salary: </p></Col> <Col><p> {userInfo['Base Salary']}</p></Col>
+        </Row>
+        <Row>
+          <Col><p> Ethnicity: </p></Col> <Col><p> {userInfo['Ethnicity']}</p></Col>
+        </Row>
+        <Row>
+          <Col><p> Gender: </p></Col> <Col><p> {userInfo['Gender']}</p></Col>
+        </Row>
+        <Row>
+          <Col><p> Sexual Orientation: </p></Col> <Col><p> {userInfo['Sexual Orientation']}</p></Col>
+        </Row>
+      </Card>
+      <Card className="p-3 m-3">
         <h3> Update Your Information: </h3>
         <FormButton />
-      </div>);
+      </Card>
+    </>);
   }
   return (
     <div>
       <Nav links={[{'Home': '/'}]}/>
-      <Container>
+      <Container className="mt-3">
         <h2> Hello {props.user.displayName}! </h2>
         {content}
       </Container>

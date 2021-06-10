@@ -8,6 +8,7 @@ import LoginPage from './Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useState, useEffect} from 'react';
 import Spinner from 'react-bootstrap/Spinner';
+import Button from 'react-bootstrap/Button';
 import './App.css';
 import { Route, Switch, Link, Redirect, NavLink, useHistory} from 'react-router-dom';
 import amazon_logo from "./imgs/amazon_logo.png";
@@ -64,15 +65,15 @@ function App(props) {
       <header>
         <div className='head'>
           <h1><Link to='/landing'>EquiPay</Link></h1>
-          <div>
-            <Link to={(!user) ? '/login/profile' : '/profile'}>
+          <div className="d-flex flex-column">
+            <Link className="btn btn-primary" to={(!user) ? '/login/profile' : '/profile'}>
               {(!user) ? 'Sign In!' : user.displayName}
             </Link>
-            <div onClick={handleSignOut} role="button" className='signout'> {(!user) ? ' ' : 'Sign Out'}</div>
+            {user && <Button onClick={handleSignOut} className='mt-1 signout' variant='secondary'> {(!user) ? ' ' : 'Sign Out'}</Button> }
           </div>
         </div>
         <div className="creators">
-          <p>Daniel Pham, Shane Fretwel, Ryan Carroll</p>
+          <p>Created by Daniel Pham, Shane Fretwell, and Ryan Carroll</p>
         </div>
       </header>
       <main>

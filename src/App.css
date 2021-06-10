@@ -171,7 +171,6 @@ a:hover, .back:hover {
 
 .c_card h3 {
   border-radius: 10px 10px 0px 0px;
-  font-size: vh;
   padding: 14px;
   color:white;
   background: darkolivegreen;
@@ -179,11 +178,7 @@ a:hover, .back:hover {
 }
 
 .c_card:hover{
-  filter: brightness(200%);
-}
-
-.c_content{
-  font-size: 1vh;
+  filter: brightness(150%);
 }
 
   /******************************** Role Card Gallery ********************************/
@@ -222,7 +217,7 @@ a:hover, .back:hover {
 }
 
 .card_content:hover {
-  filter: brightness(200%);
+  filter: brightness(150%);
 }
 
 .role_card p {
@@ -330,10 +325,6 @@ a:hover, .back:hover {
     font-size: 5vh;
   }
 
-  .c_content{
-    font-size: 2vh;
-  }
-
   .footer{
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -379,9 +370,6 @@ a:hover, .back:hover {
     font-size: 10vh;
   }
 
-  .c_content{
-    font-size: 3.5vh;
-  }
 }
 
 /******************************* X-Large Pages *******************************/

@@ -19,7 +19,7 @@ props = {
 ```
  */
 function Chart(props) {
-  React.useEffect(() => {
+  useEffect(() => {
     if (props.chartNeedsUpdate) {
       props.setUpdate(false);
     }
