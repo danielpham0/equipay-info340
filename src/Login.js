@@ -35,13 +35,27 @@ function LoginPage(props) {
   let history = useHistory();
   // sets user state based on firebase user
   useEffect(() =>{
-    firebase.auth().onAuthStateChanged((firebaseUser) => {
+    let initialized = false;
+    let time = 0;
+    let unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
+      // console.log("unsubscribe:", unsubscribe);
+      console.log("user:", firebaseUser);
+      console.log("time:", time);
+      time++;
       if(firebaseUser) {
         props.setUser(firebaseUser);
         // directs users to the correct url after user has been logged in
         history.push('/' + urlParams.success);
       } else {
         props.setUser(null);
+        // Each firebase onAuthStateChanged listener should be removed the second time that this part of the if/else structure is reached. This is because that will be when the user logs out.
+        console.log("initialized:", initialized);
+        // initialized = initialized ? unsubscribe() : true;
+        if (initialized) {
+          unsubscribe();
+        } else {
+          initialized = true;
+        }
       }
     })
   })
