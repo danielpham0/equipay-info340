@@ -15,6 +15,7 @@ import {Row} from 'react-bootstrap';
 // to confirm they actually work at a certain company
 
 function FormPage(props) {
+
   function onSubmit(event) {
     event.preventDefault();
 

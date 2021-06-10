@@ -39,7 +39,6 @@ function ProfilePage(props) {
     let role = userInfo['Job Title'].split(' ').map((str => {
       return str.charAt(0) + str.slice(1).toLowerCase();
     })).join(' ');
-    // displays user's information
     content = (<div>
         <h3> Current Information: </h3>
         <p> Company -  {userCompany.charAt(0).toUpperCase() + userCompany.slice(1)}</p>

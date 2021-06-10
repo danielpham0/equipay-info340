@@ -91,7 +91,7 @@ a:link {
   text-decoration: none;
 }
 
-a:hover {
+a:hover, .back:hover {
   color:#7f5539;
 }
 
