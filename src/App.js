@@ -54,7 +54,7 @@ function App(props) {
         setUser(null);
       }
     })
-  }, [loginSuccess]);
+  }, [loginSuccess, history]);
 
   const handleSignOut = () => {
     firebase.auth().signOut();

@@ -33,7 +33,7 @@ function LoginPage(props) {
   const urlParams = useParams();
   useEffect(() => {
     props.setLoginSuccess(urlParams.success);
-  }, [urlParams.success]);
+  }, [urlParams.success, props]);
 
   const navHist = useHistory();
 
